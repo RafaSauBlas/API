@@ -141,8 +141,8 @@
        boton.addEventListener('click', Traer);
 
        function Tecla(e){
-        if(e.code = "Enter"){
-            Traer();
+        if(e.code === "Enter"){
+          Traer();
         }
        }
        function Traer(e){
@@ -167,7 +167,21 @@
 		        FAdt_FecNac.value = respuesta[0].FAdt_FecNac;
              },
              error: function() {
-                console.error("No es posible completar la operación");
+                const Toast = Swal.mixin({
+                   toast: true,
+                   position: 'top-end',
+                   showConfirmButton: false,
+                   timer: 3000,
+                   didOpen: (toast) => {
+                     toast.addEventListener('mouseenter', Swal.stopTimer)
+                     toast.addEventListener('mouseleave', Swal.resumeTimer)
+                   }
+                })
+
+                Toast.fire({
+                  icon: 'error',
+                  title: 'No es posible completar la operación.'
+                 });
              }
           });
        }
@@ -187,7 +201,21 @@
                 FAnv_FiscalColonia.value = Colonos;
              },
              error: function() {
-                console.error("No es posible completar la operación");
+                const Toast = Swal.mixin({
+                   toast: true,
+                   position: 'top-end',
+                   showConfirmButton: false,
+                   timer: 3000,
+                   didOpen: (toast) => {
+                     toast.addEventListener('mouseenter', Swal.stopTimer)
+                     toast.addEventListener('mouseleave', Swal.resumeTimer)
+                   }
+                })
+
+                Toast.fire({
+                  icon: 'error',
+                  title: 'No es posible completar la operación.'
+                 });
              }
             });
          }
