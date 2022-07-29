@@ -12,13 +12,13 @@ class Clientes extends Controller
     public function SHOW(Request $request){
         $cliente = DB::table('FATB_Clientes')->where('FAnv_Razon', $request->FAnv_Nombres.' '.$request->FAnv_APaterno.' '.$request->FAnv_AMaterno)
                      ->select('FAnv_Nombres', 'FAnv_APaterno', 'FAnv_AMaterno', 'FAnv_FiscalCd', 'FAnv_FiscalColonia', 'FAin_FiscalCP', 'FAnv_Calle', 'FAnv_Tel',
-                              'FAnv_Cel', 'FAnv_CURP', 'FAnv_RFC', 'FAnv_IFE', 'FAnv_Municipio', 'FAdt_FecNac')
+                              'FAnv_Cel', 'FAnv_CURP', 'FAnv_RFC', 'FAnv_IFE', 'FAdt_FecNac')
                      ->get();
         return $cliente;
     }
 
-    public function Colonias($CP){
-        $colonias = DB::table('FATB_CodigosPostales')->where('CP', $CP)
+    public function Colonias(request $request){
+        $colonias = DB::table('FATB_CodigosPostales')->where('CP', $request->CP)
                       ->select('Colonia')
                       ->get();
         $colon = array();

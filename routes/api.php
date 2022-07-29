@@ -24,5 +24,5 @@ ROUTE::POST('/clientes/crear', [Clientes::class, 'Insertar', function(Request $r
 ROUTE::PUT('/clientes/modificar', [Clientes::class, 'Actualizar', function(Request $request){}]);
 
 ROUTE::GET('/clientes/estado', [Clientes::class, 'Estado', function(Request $request){}]);
-ROUTE::GET('/clientes/municipio', [Clientes::class, 'Fec', function(Request $request){}]);
+ROUTE::GET('/clientes/Municipio', [Clientes::class, 'Fec', function(Request $request){}]);
 ROUTE::GET('/clientes/colonias', [Clientes::class, 'Colonias', function(Request $request){}]);
