@@ -11,7 +11,7 @@ class Clientes extends Controller
 {
     public function SHOW(Request $request){
         $cliente = DB::table('FATB_Clientes')->where('FAnv_Razon', $request->FAnv_Nombres.' '.$request->FAnv_APaterno.' '.$request->FAnv_AMaterno)
-                     ->select('FAnv_Nombres', 'FAnv_APaterno', 'FAnv_AMaterno', 'FAnv_FiscalCd', 'FAnv_FiscalColonia', 'FAin_FiscalCP', 'FAnv_Calle', 'FAnv_Tel',
+                     ->select('FAnv_Nombres', 'FAnv_APaterno', 'FAnv_AMaterno', 'FAnv_FiscalCd', 'FAnv_FiscalColonia', 'FAnv_ApartadoPost', 'FAnv_Calle', 'FAnv_Tel',
                               'FAnv_Cel', 'FAnv_CURP', 'FAnv_RFC', 'FAnv_IFE', 'FAdt_FecNac')
                      ->get();
         return $cliente;
@@ -72,11 +72,11 @@ class Clientes extends Controller
             'FAdt_FechaAlta' => Carbon::now()->format('Y-m-d').'T00:00:00.000',
             'FAnv_Razon' => strtoupper($request->FAnv_Nombres).' '.strtoupper($request->FAnv_APaterno).' '.strtoupper($request->FAnv_AMaterno),
             'FAnv_Abreviado' => '',
-            'FAnv_Cd' => self::Municipio($request->FAin_FiscalCP),
-            'FAnv_FiscalCd' => self::Municipio($request->FAin_FiscalCP),
+            'FAnv_Cd' => self::Municipio($request->FAnv_ApartadoPost),
+            'FAnv_FiscalCd' => self::Municipio($request->FAnv_ApartadoPost),
             'FAnv_FiscalColonia' => strtoupper($request->FAnv_FiscalColonia),
-            'FAin_FiscalCP' => $request->FAin_FiscalCP,
-            'FAnv_ApartadoPost' => $request->FAin_FiscalCP,
+            'FAin_FiscalCP' => $request->FAnv_ApartadoPost,
+            'FAnv_ApartadoPost' => $request->FAnv_ApartadoPost,
             'FAnv_DirFiscal' => strtoupper($request->FAnv_Calle),
             'FAnv_Calle' => strtoupper($request->FAnv_Calle),
             'FAnv_ProdFinan' => '',
@@ -127,8 +127,8 @@ class Clientes extends Controller
             'FAin_Agente' => '',
             'FAnv_PrecioSug' => '',
             'FAnv_NoContrato' => '',
-            'FAnv_Municipio' => self::Municipio($request->FAin_FiscalCP),
-            'FAnv_Estado' => self::Estado($request->FAin_FiscalCP),
+            'FAnv_Municipio' => self::Municipio($request->FAnv_ApartadoPost),
+            'FAnv_Estado' => self::Estado($request->FAnv_ApartadoPost),
             'FAnv_APaterno' => strtoupper($request->FAnv_APaterno),
             'FAnv_AMaterno' => strtoupper($request->FAnv_AMaterno),
             'FAnv_Nombres' => strtoupper($request->FAnv_Nombres),
@@ -276,11 +276,11 @@ class Clientes extends Controller
                     ->where('FAnv_CURP', $request->FAnv_CURP)
                     ->update([
                         'FAnv_Razon' => strtoupper($request->FAnv_Nombres).' '.strtoupper($request->FAnv_APaterno).' '.strtoupper($request->FAnv_AMaterno),
-                        'FAnv_Cd' => self::Municipio($request->FAin_FiscalCP),
-                        'FAnv_FiscalCd' => self::Municipio($request->FAin_FiscalCP),
+                        'FAnv_Cd' => self::Municipio($request->FAnv_ApartadoPost),
+                        'FAnv_FiscalCd' => self::Municipio($request->FAnv_ApartadoPost),
                         'FAnv_FiscalColonia' => strtoupper($request->FAnv_FiscalColonia),
-                        'FAin_FiscalCP' => $request->FAin_FiscalCP,
-                        'FAnv_ApartadoPost' => $request->FAin_FiscalCP,
+                        'FAin_FiscalCP' => $request->FAnv_ApartadoPost,
+                        'FAnv_ApartadoPost' => $request->FAnv_ApartadoPost,
                         'FAnv_DirFiscal' => strtoupper($request->FAnv_Calle),
                         'FAnv_Calle' => strtoupper($request->FAnv_Calle),
                         'FAnv_Tel' => $request->FAnv_Tel,

@@ -82,7 +82,7 @@
       </div>
       <div class="row">
         <div class="col-3">
-          <input type="text" class="form-control" id="FAin_FiscalCP">
+          <input type="text" class="form-control" id="FAnv_ApartadoPost">
         </div>
         <div class="col-3">
           <select class="form-select" id="FAnv_FiscalColonia">
@@ -120,24 +120,24 @@
     </div>
 
     <script type="text/javascript">
-        const FAnv_Nombres = document.getElementById('FAnv_Nombres');
-		const FAnv_APaterno = document.getElementById('FAnv_APaterno');
-		const FAnv_AMaterno = document.getElementById('FAnv_AMaterno');
-		const FAnv_FiscalCd = document.getElementById('FAnv_FiscalCd');
-		const FAnv_FiscalColonia = document.getElementById('FAnv_FiscalColonia');
-		const FAin_FiscalCP = document.getElementById('FAin_FiscalCP');
-		const FAnv_Calle = document.getElementById('FAnv_Calle');
-		const FAnv_Tel = document.getElementById('FAnv_Tel');
-		const FAnv_Cel = document.getElementById('FAnv_Cel');
-		const FAnv_CURP = document.getElementById('FAnv_CURP');
-		const FAnv_RFC = document.getElementById('FAnv_RFC');
-		const FAnv_IFE = document.getElementById('FAnv_IFE');
-		const FAdt_FecNac = document.getElementById('FAdt_FecNac');
-        const boton = document.getElementById('boton');
-        var Colonos;
+       const FAnv_Nombres = document.getElementById('FAnv_Nombres');
+		   const FAnv_APaterno = document.getElementById('FAnv_APaterno');
+		   const FAnv_AMaterno = document.getElementById('FAnv_AMaterno');
+		   const FAnv_FiscalCd = document.getElementById('FAnv_FiscalCd');
+		   const FAnv_FiscalColonia = document.getElementById('FAnv_FiscalColonia');
+		   const FAnv_ApartadoPost = document.getElementById('FAnv_ApartadoPost');
+		   const FAnv_Calle = document.getElementById('FAnv_Calle');
+		   const FAnv_Tel = document.getElementById('FAnv_Tel');
+		   const FAnv_Cel = document.getElementById('FAnv_Cel');
+		   const FAnv_CURP = document.getElementById('FAnv_CURP');
+		   const FAnv_RFC = document.getElementById('FAnv_RFC');
+		   const FAnv_IFE = document.getElementById('FAnv_IFE');
+		   const FAdt_FecNac = document.getElementById('FAdt_FecNac');
+       const boton = document.getElementById('boton');
+       var Colonos;
 
        FAnv_AMaterno.addEventListener('keyup', Tecla);
-       FAin_FiscalCP.addEventListener('change', Colonias);
+       FAnv_ApartadoPost.addEventListener('change', Colonias);
        boton.addEventListener('click', Traer);
 
        function Tecla(e){
@@ -153,18 +153,18 @@
              success: function(respuesta){
                 Colonos = respuesta[0].FAnv_FiscalColonia;
                 FAnv_Nombres.value = respuesta[0].FAnv_Nombres;
-		        FAnv_APaterno.value = respuesta[0].FAnv_APaterno;
-		        FAnv_AMaterno.value = respuesta[0].FAnv_AMaterno;
-		        FAnv_FiscalCd.value = respuesta[0].FAnv_FiscalCd;
-                FAin_FiscalCP.value = respuesta[0].FAin_FiscalCP;
+		            FAnv_APaterno.value = respuesta[0].FAnv_APaterno;
+		            FAnv_AMaterno.value = respuesta[0].FAnv_AMaterno;
+		            FAnv_FiscalCd.value = respuesta[0].FAnv_FiscalCd;
+                FAnv_ApartadoPost.value = respuesta[0].FAnv_ApartadoPost;
                 Colonias();
-		        FAnv_Calle.value = respuesta[0].FAnv_Calle;
-		        FAnv_Tel.value = respuesta[0].FAnv_Tel;
-		        FAnv_Cel.value = respuesta[0].FAnv_Cel;
-		        FAnv_CURP.value = respuesta[0].FAnv_CURP;
-		        FAnv_RFC.value = respuesta[0].FAnv_RFC;
-		        FAnv_IFE.value = respuesta[0].FAnv_IFE;
-		        FAdt_FecNac.value = respuesta[0].FAdt_FecNac;
+		            FAnv_Calle.value = respuesta[0].FAnv_Calle;
+		            FAnv_Tel.value = respuesta[0].FAnv_Tel;
+		            FAnv_Cel.value = respuesta[0].FAnv_Cel;
+		            FAnv_CURP.value = respuesta[0].FAnv_CURP;
+		            FAnv_RFC.value = respuesta[0].FAnv_RFC;
+		            FAnv_IFE.value = respuesta[0].FAnv_IFE;
+		            FAdt_FecNac.value = respuesta[0].FAdt_FecNac;
              },
              error: function() {
                 const Toast = Swal.mixin({
@@ -181,47 +181,46 @@
                 Toast.fire({
                   icon: 'error',
                   title: 'No es posible completar la operación.'
-                 });
+                });
              }
           });
        }
 
        function Colonias(e){
-         if(FAin_FiscalCP.value.length == 5){
+         if(FAnv_ApartadoPost.value.length == 5){
             $.ajax({
-             url: 'http://127.0.0.1:8000/api/clientes/colonias',
-             type: 'GET',
-             data:{CP: FAin_FiscalCP.value},
-             success: function(respuesta){
-                for(i = 0; i < respuesta.length; i++){
-                    var option = document.createElement("option");
-                        option.text = respuesta[i];
-                        FAnv_FiscalColonia.add(option);
-                }
-                FAnv_FiscalColonia.value = Colonos;
-             },
-             error: function() {
-                const Toast = Swal.mixin({
-                   toast: true,
-                   position: 'top-end',
-                   showConfirmButton: false,
-                   timer: 3000,
-                   didOpen: (toast) => {
-                     toast.addEventListener('mouseenter', Swal.stopTimer)
-                     toast.addEventListener('mouseleave', Swal.resumeTimer)
-                   }
-                })
+               url: 'http://127.0.0.1:8000/api/clientes/colonias',
+               type: 'GET',
+               data:{CP: FAnv_ApartadoPost.value},
+               success: function(respuesta){
+                  for(i = 0; i < respuesta.length; i++){
+                     var option = document.createElement("option");
+                         option.text = respuesta[i];
+                         FAnv_FiscalColonia.add(option);
+                  }
+                  FAnv_FiscalColonia.value = Colonos;
+               },
+               error: function() {
+                  const Toast = Swal.mixin({
+                     toast: true,
+                     position: 'top-end',
+                     showConfirmButton: false,
+                     timer: 3000,
+                     didOpen: (toast) => {
+                        toast.addEventListener('mouseenter', Swal.stopTimer)
+                        toast.addEventListener('mouseleave', Swal.resumeTimer)
+                     }
+                  })
 
-                Toast.fire({
-                  icon: 'error',
-                  title: 'No es posible completar la operación.'
-                 });
-             }
+                  Toast.fire({
+                     icon: 'error',
+                     title: 'No es posible completar la operación.'
+                  });
+               }
             });
          }
        }
 
-    
     </script>
 
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
