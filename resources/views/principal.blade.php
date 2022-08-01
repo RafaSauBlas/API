@@ -155,31 +155,30 @@
     </div>
 
     <script type="text/javascript">
-       const Cliente = document.getElementById('Cliente');
-       const FAnv_Nombres = document.getElementById('FAnv_Nombres');
+       const FAnv_FiscalColonia = document.getElementById('FAnv_FiscalColonia');
+	     const FAnv_ApartadoPost = document.getElementById('FAnv_ApartadoPost');
 	     const FAnv_APaterno = document.getElementById('FAnv_APaterno');
 	     const FAnv_AMaterno = document.getElementById('FAnv_AMaterno');
 	     const FAnv_FiscalCd = document.getElementById('FAnv_FiscalCd');
-	     const FAnv_FiscalColonia = document.getElementById('FAnv_FiscalColonia');
-	     const FAnv_ApartadoPost = document.getElementById('FAnv_ApartadoPost');
+       const FAnv_Nombres = document.getElementById('FAnv_Nombres');
+       const FAdt_FecNac = document.getElementById('FAdt_FecNac');
 	     const FAnv_Calle = document.getElementById('FAnv_Calle');
-	     const FAnv_Tel = document.getElementById('FAnv_Tel');
+       const FAnv_CURP = document.getElementById('FAnv_CURP');
+       const FAnv_Tel = document.getElementById('FAnv_Tel');
 	     const FAnv_Cel = document.getElementById('FAnv_Cel');
-	     const FAnv_CURP = document.getElementById('FAnv_CURP');
-	     const FAnv_RFC = document.getElementById('FAnv_RFC');
-	     const FAnv_IFE = document.getElementById('FAnv_IFE');
-	     const FAdt_FecNac = document.getElementById('FAdt_FecNac');
-       const boton = document.getElementById('boton');
+       const FAnv_RFC = document.getElementById('FAnv_RFC');
+       const FAnv_IFE = document.getElementById('FAnv_IFE');
        const limpiar = document.getElementById('limpiar');
-       const Tool = document.getElementById('tooltip');
+       const Cliente = document.getElementById('Cliente');
+	     const Tool = document.getElementById('tooltip');
+       const boton = document.getElementById('boton');
        var Colonos;
        var Cli;
 
-       FAnv_AMaterno.addEventListener('keyup', Tecla);
        FAnv_ApartadoPost.addEventListener('keyup', Colonias);
-       boton.addEventListener('click', Aceptar);
-
+       FAnv_AMaterno.addEventListener('keyup', Tecla);
        limpiar.addEventListener('click', Limpiar);
+       boton.addEventListener('click', Aceptar);
 
        function Limpiar(e){
          FAnv_Nombres.value = "";
@@ -195,26 +194,44 @@
 		     FAnv_IFE.value = "";
 		     FAdt_FecNac.value = "";
          while(FAnv_FiscalColonia.options.length > 0){
-          FAnv_FiscalColonia.remove(0);
+           FAnv_FiscalColonia.remove(0);
          }
          Cliente.value = "";
        }
 
        function Aceptar(e){
-         
          var elementos = document.getElementById("my-form").elements;
-
+         var valor = 0;
          for(var i = 0, element; element = elementos[i++];){
            if(element.id != "FAnv_FiscalCd" && element.type != "button" && element.value === ""){
              element.style.borderColor = "red";
              $("#"+element.id).fadeTo(200, .1).fadeTo(200, 1)
                               .fadeTo(200, .1).fadeTo(200, 1);
+
+             const Toast = Swal.mixin({
+               toast: true,
+               position: 'top-end',
+               showConfirmButton: false,
+               timer: 3000,
+               didOpen: (toast) => {
+                 toast.addEventListener('mouseenter', Swal.stopTimer)
+                 toast.addEventListener('mouseleave', Swal.resumeTimer)
+               }
+             });
+
+             Toast.fire({
+               icon: 'error',
+               title: 'Rellene todos los campos para continuar.'
+             });
+             valor ++;
            }
            else{
              element.style.borderColor = "#d6d6d6";
            }
          }
+         console.log(valor);
 
+         
        }
 
        function Tecla(e){
@@ -228,9 +245,9 @@
            url: 'http://127.0.0.1:8000/api/clientes/traer',
            type: 'GET',
            data: {FAnv_Nombres: FAnv_Nombres.value, FAnv_APaterno: FAnv_APaterno.value, FAnv_AMaterno: FAnv_AMaterno.value},
-             success: function(respuesta){
-               if(respuesta.length == 0){
-                const Toast = Swal.mixin({
+           success: function(respuesta){
+             if(respuesta.length == 0){
+               const Toast = Swal.mixin({
                  toast: true,
                  position: 'top-end',
                  showConfirmButton: false,
@@ -239,49 +256,50 @@
                    toast.addEventListener('mouseenter', Swal.stopTimer)
                    toast.addEventListener('mouseleave', Swal.resumeTimer)
                  }
-               })
+               });
 
                Toast.fire({
                  icon: 'error',
                  title: 'El cliente que busca no existe.'
                });
-               }else{
-                Colonos = respuesta[0].FAnv_FiscalColonia;
-                FAnv_Nombres.value = respuesta[0].FAnv_Nombres;
-		            FAnv_APaterno.value = respuesta[0].FAnv_APaterno;
-		            FAnv_AMaterno.value = respuesta[0].FAnv_AMaterno;
-		            FAnv_FiscalCd.value = respuesta[0].FAnv_FiscalCd;
-                FAnv_ApartadoPost.value = respuesta[0].FAnv_ApartadoPost;
-                Colonias();
-		            FAnv_Calle.value = respuesta[0].FAnv_Calle;
-		            FAnv_Tel.value = respuesta[0].FAnv_Tel;
-		            FAnv_Cel.value = respuesta[0].FAnv_Cel;
-		            FAnv_CURP.value = respuesta[0].FAnv_CURP;
-		            FAnv_RFC.value = respuesta[0].FAnv_RFC;
-		            FAnv_IFE.value = respuesta[0].FAnv_IFE;
-		            FAdt_FecNac.value = respuesta[0].FAdt_FecNac;
-                Cli = respuesta[0].FAnv_Nombres + ' ' + respuesta[0].FAnv_APaterno + ' ' + respuesta[0].FAnv_AMaterno;
                }
-             },
-             error: function() {
-               const Toast = Swal.mixin({
-                 toast: true,
-                 position: 'top-end',
-                 showConfirmButton: false,
-                 timer: 3000,
-                 didOpen: (toast) => {
-                   toast.addEventListener('mouseenter', Swal.stopTimer)
-                   toast.addEventListener('mouseleave', Swal.resumeTimer)
-                 }
-               })
-
-               Toast.fire({
-                 icon: 'error',
-                 title: 'No es posible completar la operación.'
-               });
-               FAnv_Nombres.background = "#f3431e";
+             else{
+               Colonos = respuesta[0].FAnv_FiscalColonia;
+               FAnv_Nombres.value = respuesta[0].FAnv_Nombres;
+		           FAnv_APaterno.value = respuesta[0].FAnv_APaterno;
+		           FAnv_AMaterno.value = respuesta[0].FAnv_AMaterno;
+		           FAnv_FiscalCd.value = respuesta[0].FAnv_FiscalCd;
+               FAnv_ApartadoPost.value = respuesta[0].FAnv_ApartadoPost;
+               Colonias();
+		           FAnv_Calle.value = respuesta[0].FAnv_Calle;
+		           FAnv_Tel.value = respuesta[0].FAnv_Tel;
+		           FAnv_Cel.value = respuesta[0].FAnv_Cel;
+		           FAnv_CURP.value = respuesta[0].FAnv_CURP;
+		           FAnv_RFC.value = respuesta[0].FAnv_RFC;
+		           FAnv_IFE.value = respuesta[0].FAnv_IFE;
+		           FAdt_FecNac.value = respuesta[0].FAdt_FecNac;
+               Cli = respuesta[0].FAnv_Nombres + ' ' + respuesta[0].FAnv_APaterno + ' ' + respuesta[0].FAnv_AMaterno;
              }
-          });
+           },
+           error: function() {
+             const Toast = Swal.mixin({
+               toast: true,
+               position: 'top-end',
+               showConfirmButton: false,
+               timer: 3000,
+               didOpen: (toast) => {
+                 toast.addEventListener('mouseenter', Swal.stopTimer)
+                 toast.addEventListener('mouseleave', Swal.resumeTimer)
+               }
+             });
+
+             Toast.fire({
+               icon: 'error',
+               title: 'No es posible completar la operación.'
+             });
+             FAnv_Nombres.background = "#f3431e";
+           }
+         });
        }
 
        function Colonias(e){
@@ -292,9 +310,9 @@
               data:{CP: FAnv_ApartadoPost.value},
               success: function(respuesta){
                 for(i = 0; i < respuesta.length; i++){
-                   var option = document.createElement("option");
-                       option.text = respuesta[i];
-                       FAnv_FiscalColonia.add(option);
+                  var option = document.createElement("option");
+                      option.text = respuesta[i];
+                      FAnv_FiscalColonia.add(option);
                 }
                 if(typeof Colonos === 'undefined'){
                   FAnv_FiscalColonia.selectedIndex = "0";
@@ -313,7 +331,7 @@
                     toast.addEventListener('mouseenter', Swal.stopTimer)
                     toast.addEventListener('mouseleave', Swal.resumeTimer)
                   }
-                })
+                });
 
                 Toast.fire({
                   icon: 'error',
@@ -324,7 +342,7 @@
          }
          else{
            while(FAnv_FiscalColonia.options.length > 0){
-                 FAnv_FiscalColonia.remove(0);
+             FAnv_FiscalColonia.remove(0);
            }
          }
        }
