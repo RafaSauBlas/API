@@ -19,10 +19,13 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+
+//========== RUTAS ESPECIFICAS PARA CLIENTES ==========
+ROUTE::GET('/clientes/verificar', [Clientes::class, 'Validar', function(Request $request){}]);
 ROUTE::GET('/clientes/traer', [Clientes::class, 'SHOW', function(Request $request){}]);
 ROUTE::POST('/clientes/crear', [Clientes::class, 'Insertar', function(Request $request){}]);
 ROUTE::PUT('/clientes/modificar', [Clientes::class, 'Actualizar', function(Request $request){}]);
 
 ROUTE::GET('/clientes/estado', [Clientes::class, 'Estado', function(Request $request){}]);
-ROUTE::GET('/clientes/Municipio', [Clientes::class, 'Fec', function(Request $request){}]);
+ROUTE::GET('/clientes/Municipio', [Clientes::class, 'Munis', function(Request $request){}]);
 ROUTE::GET('/clientes/colonias', [Clientes::class, 'Colonias', function(Request $request){}]);

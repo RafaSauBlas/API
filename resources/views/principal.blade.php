@@ -29,122 +29,119 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
-           <form id="my-form">
-            <div class="container">
+            <form id="my-form">
+              <div class="container">
               
-              <div class="row">
-                <div class="col-3">
-                  Nombres
+                <div class="row">
+                  <div class="col-3">
+                    Nombres
+                  </div>
+                  <div class="col-3">
+                    Ap. Paterno
+                  </div>
+                  <div class="col-3">
+                    Ap. Materno
+                  </div>
+                  <div class="col-3">
+                    Fecha de nacimiento
+                  </div>
                 </div>
-                <div class="col-3">
-                  Ap. Paterno
+                <div class="row">
+                  <div class="col-3">
+                    <input type="text" class="form-control" id="FAnv_Nombres" for="validationCustomUsername"required>
+                  </div>
+                  <div class="col-3">
+                    <input type="text" class="form-control" id="FAnv_APaterno" for="validationCustomUsername" required>
+                  </div>
+                  <div class="col-3">
+                    <input type="text" class="form-control" id="FAnv_AMaterno" for="validationCustomUsername" required>
+                  </div>
+                  <div class="col-3">
+                    <input type="date" class="form-control" id="FAdt_FechaNac" for="validationCustomUsername" required>
+                  </div>
                 </div>
-                <div class="col-3">
-                  Ap. Materno
-                </div>
-                <div class="col-3">
-                  Fecha de nacimiento
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-3">
-                  <input type="text" class="form-control" id="FAnv_Nombres" for="validationCustomUsername"required>
-                </div>
-                <div class="col-3">
-                  <input type="text" class="form-control" id="FAnv_APaterno" for="validationCustomUsername" required>
-                </div>
-                <div class="col-3">
-                  <input type="text" class="form-control" id="FAnv_AMaterno" for="validationCustomUsername" required>
-                </div>
-                <div class="col-3">
-                  <input type="date" class="form-control" id="FAdt_FecNac" for="validationCustomUsername" required>
-                </div>
-              </div>
               
-              <div class="row">
-                <div class="col-4">
-                  CURP
+                <div class="row">
+                  <div class="col-4">
+                    CURP
+                  </div>
+                  <div class="col-4">
+                    RFC
+                  </div>
+                  <div class="col-4">
+                    INE
+                  </div>
                 </div>
-                <div class="col-4">
-                  RFC
+                <div class="row">
+                  <div class="col-4">
+                    <input type="text" class="form-control" id="FAnv_CURP">
+                  </div>
+                  <div class="col-4">
+                    <input type="text" class="form-control" id="FAnv_RFC">
+                  </div>
+                  <div class="col-4">
+                    <input type="text" class="form-control" id="FAnv_IFE">
+                  </div>
                 </div>
-                <div class="col-4">
-                  INE
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-4">
-                  <input type="text" class="form-control" id="FAnv_CURP">
-                </div>
-                <div class="col-4">
-                  <input type="text" class="form-control" id="FAnv_RFC">
-                </div>
-                <div class="col-4">
-                  <input type="text" class="form-control" id="FAnv_IFE">
-                </div>
-              </div>
-              <br>
+                <br>
 
-              <div class="row">
-                <div class="col-3">
-                  CP
+                <div class="row">
+                  <div class="col-3">
+                    CP
+                  </div>
+                  <div class="col-3">
+                    Colonia
+                  </div>
+                  <div class="col-4">
+                    Calle
+                  </div>
+                  <div class="col-2">
+                    Ciudad
+                  </div>
                 </div>
-                <div class="col-3">
-                  Colonia
+                <div class="row">
+                  <div class="col-3">
+                    <input type="text" class="form-control" id="FAnv_ApartadoPost">
+                  </div>
+                  <div class="col-3">
+                    <select class="form-select" id="FAnv_FiscalColonia">
+                    </select>
+                  </div>
+                  <div class="col-4">
+                    <input type="text" class="form-control" id="FAnv_Calle">
+                  </div>
+                  <div class="col-2">
+                    <input type="text" class="form-control" id="FAnv_FiscalCd" disabled>
+                  </div>
                 </div>
-                <div class="col-4">
-                  Calle
-                </div>
-                <div class="col-2">
-                  Ciudad
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-3">
-                  <input type="text" class="form-control" id="FAnv_ApartadoPost">
-                </div>
-                <div class="col-3">
-                  <select class="form-select" id="FAnv_FiscalColonia">
-                  </select>
-                </div>
-                <div class="col-4">
-                  <input type="text" class="form-control" id="FAnv_Calle">
-                </div>
-                <div class="col-2">
-                  <input type="text" class="form-control" id="FAnv_FiscalCd" disabled>
-                </div>
-              </div>
-              <br>
+                <br>
 
-              <div class="row">
-                <div class="col-4">
-                  Telefono
+                <div class="row">
+                  <div class="col-4">
+                    Telefono
+                  </div>
+                  <div class="col-4">
+                    Celular
+                  </div>
                 </div>
-                <div class="col-4">
-                  Celular
+                <div class="row">
+                  <div class="col-4">
+                    <input type="text" class="form-control" id="FAnv_Tel">
+                  </div>
+                  <div class="col-4">
+                    <input type="text" class="form-control" id="FAnv_Cel">
+                  </div>
                 </div>
-              </div>
-              <div class="row">
-                <div class="col-4">
-                  <input type="text" class="form-control" id="FAnv_Tel">
-                </div>
-                <div class="col-4">
-                  <input type="text" class="form-control" id="FAnv_Cel">
-                </div>
-              </div>
-              <br>
+                <br>
 
-              <div class="row">
-                <div class="col-10">
-                  
-                </div>
-                <div class="col-2">
-                <button type="button" id="limpiar" class="btn btn-warning float-right" >Limpiar</button>
+                <div class="row">
+                  <div class="col-10"> </div>
+                  <div class="col-2">
+                    <button type="button" id="limpiar" class="btn btn-warning float-right" >Limpiar</button>
+                  </div>
                 </div>
               </div>
-              
-            </div>
-           </form>
+            </form>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
@@ -161,7 +158,7 @@
 	     const FAnv_AMaterno = document.getElementById('FAnv_AMaterno');
 	     const FAnv_FiscalCd = document.getElementById('FAnv_FiscalCd');
        const FAnv_Nombres = document.getElementById('FAnv_Nombres');
-       const FAdt_FecNac = document.getElementById('FAdt_FecNac');
+       const FAdt_FechaNac = document.getElementById('FAdt_FechaNac');
 	     const FAnv_Calle = document.getElementById('FAnv_Calle');
        const FAnv_CURP = document.getElementById('FAnv_CURP');
        const FAnv_Tel = document.getElementById('FAnv_Tel');
@@ -192,7 +189,7 @@
 		     FAnv_CURP.value = "";
 		     FAnv_RFC.value = "";
 		     FAnv_IFE.value = "";
-		     FAdt_FecNac.value = "";
+		     FAdt_FechaNac.value = "";
          while(FAnv_FiscalColonia.options.length > 0){
            FAnv_FiscalColonia.remove(0);
          }
@@ -229,8 +226,54 @@
              element.style.borderColor = "#d6d6d6";
            }
          }
-         console.log(valor);
 
+         if(valor == 0){
+           $.ajax({
+             url: 'http://127.0.0.1:8000/api/clientes/verificar',
+             type: 'GET',
+             data:{FAnv_Nombres: FAnv_Nombres.value, FAnv_APaterno: FAnv_APaterno.value, FAnv_AMaterno: FAnv_AMaterno.value, FAnv_FiscalCd: FAnv_FiscalCd.value,
+	                 FAnv_FiscalColonia: FAnv_FiscalColonia.value, FAnv_ApartadoPost: FAnv_ApartadoPost.value, FAnv_Calle: FAnv_Calle.value, FAnv_Tel: FAnv_Tel.value,
+	                 FAnv_Cel: FAnv_Cel.value, FAnv_CURP: FAnv_CURP.value, FAnv_RFC: FAnv_RFC.value, FAnv_IFE: FAnv_IFE.value, FAdt_FechaNac: FAdt_FechaNac.value},
+             success: function(respuesta){
+               if(respuesta != ""){
+                 const Toast = Swal.mixin({
+                   toast: true,
+                   position: 'top-end',
+                   showConfirmButton: false,
+                   timer: 3000,
+                   didOpen: (toast) => {
+                     toast.addEventListener('mouseenter', Swal.stopTimer)
+                     toast.addEventListener('mouseleave', Swal.resumeTimer)
+                   }
+                 });
+
+                 Toast.fire({
+                   icon: 'success',
+                   title: respuesta
+                 });
+               }
+               $("#exampleModal").modal('hide');
+             },
+             error: function(){
+               const Toast = Swal.mixin({
+                 toast: true,
+                 position: 'top-end',
+                 showConfirmButton: false,
+                 timer: 3000,
+                 didOpen: (toast) => {
+                   toast.addEventListener('mouseenter', Swal.stopTimer)
+                   toast.addEventListener('mouseleave', Swal.resumeTimer)
+                 }
+               });
+
+               Toast.fire({
+                 icon: 'error',
+                 title: 'No es posible completar la operación.'
+               });
+             }
+           });
+           Cliente.value = Cli;
+         }
          
        }
 
@@ -262,7 +305,7 @@
                  icon: 'error',
                  title: 'El cliente que busca no existe.'
                });
-               }
+             }
              else{
                Colonos = respuesta[0].FAnv_FiscalColonia;
                FAnv_Nombres.value = respuesta[0].FAnv_Nombres;
@@ -277,11 +320,11 @@
 		           FAnv_CURP.value = respuesta[0].FAnv_CURP;
 		           FAnv_RFC.value = respuesta[0].FAnv_RFC;
 		           FAnv_IFE.value = respuesta[0].FAnv_IFE;
-		           FAdt_FecNac.value = respuesta[0].FAdt_FecNac;
+		           FAdt_FechaNac.value = respuesta[0].FAdt_FechaNac;
                Cli = respuesta[0].FAnv_Nombres + ' ' + respuesta[0].FAnv_APaterno + ' ' + respuesta[0].FAnv_AMaterno;
              }
            },
-           error: function() {
+           error: function(){
              const Toast = Swal.mixin({
                toast: true,
                position: 'top-end',
@@ -302,43 +345,79 @@
          });
        }
 
+       function Ciudad(e){
+         if(FAnv_ApartadoPost.value.length == 5){
+           $.ajax({
+             url: 'http://127.0.0.1:8000/api/clientes/Municipio',
+             type: 'GET',
+             data:{CP: FAnv_ApartadoPost.value},
+             success: function(respuesta){
+               FAnv_FiscalCd.value = respuesta;
+             },
+             error: function() {
+               const Toast = Swal.mixin({
+                 toast: true,
+                 position: 'top-end',
+                 showConfirmButton: false,
+                 timer: 3000,
+                 didOpen: (toast) => {
+                   toast.addEventListener('mouseenter', Swal.stopTimer)
+                   toast.addEventListener('mouseleave', Swal.resumeTimer)
+                 }
+               });
+
+               Toast.fire({
+                 icon: 'error',
+                 title: 'No es posible completar la operación.'
+               });
+             }
+           });
+         }
+         else{
+           while(FAnv_FiscalColonia.options.length > 0){
+             FAnv_FiscalColonia.remove(0);
+           }
+         }
+       }
+
        function Colonias(e){
          if(FAnv_ApartadoPost.value.length == 5){
-            $.ajax({
-              url: 'http://127.0.0.1:8000/api/clientes/colonias',
-              type: 'GET',
-              data:{CP: FAnv_ApartadoPost.value},
-              success: function(respuesta){
-                for(i = 0; i < respuesta.length; i++){
-                  var option = document.createElement("option");
-                      option.text = respuesta[i];
-                      FAnv_FiscalColonia.add(option);
-                }
-                if(typeof Colonos === 'undefined'){
-                  FAnv_FiscalColonia.selectedIndex = "0";
-                }
-                else{
-                  FAnv_FiscalColonia.value = Colonos;
-                }
-              },
-              error: function() {
-                const Toast = Swal.mixin({
-                  toast: true,
-                  position: 'top-end',
-                  showConfirmButton: false,
-                  timer: 3000,
-                  didOpen: (toast) => {
-                    toast.addEventListener('mouseenter', Swal.stopTimer)
-                    toast.addEventListener('mouseleave', Swal.resumeTimer)
-                  }
-                });
+           $.ajax({
+             url: 'http://127.0.0.1:8000/api/clientes/colonias',
+             type: 'GET',
+             data:{CP: FAnv_ApartadoPost.value},
+             success: function(respuesta){
+               Ciudad();
+               for(i = 0; i < respuesta.length; i++){
+                 var option = document.createElement("option");
+                     option.text = respuesta[i];
+                     FAnv_FiscalColonia.add(option);
+               }
+               if(typeof Colonos === 'undefined'){
+                 FAnv_FiscalColonia.selectedIndex = "0";
+               }
+               else{
+                 FAnv_FiscalColonia.value = Colonos;
+               }
+             },
+             error: function(){
+               const Toast = Swal.mixin({
+                 toast: true,
+                 position: 'top-end',
+                 showConfirmButton: false,
+                 timer: 3000,
+                 didOpen: (toast) => {
+                   toast.addEventListener('mouseenter', Swal.stopTimer)
+                   toast.addEventListener('mouseleave', Swal.resumeTimer)
+                 }
+               });
 
-                Toast.fire({
-                  icon: 'error',
-                  title: 'No es posible completar la operación.'
-                });
-              }
-            });
+               Toast.fire({
+                 icon: 'error',
+                 title: 'No es posible completar la operación.'
+               });
+             }
+           });
          }
          else{
            while(FAnv_FiscalColonia.options.length > 0){
