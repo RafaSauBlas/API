@@ -17,7 +17,7 @@
         <div class="col-6">
           <div class="input-group mb-3">
             <input type="text" class="form-control" aria-label="Recipient's username" aria-describedby="button-addon2" id="Cliente" placeholder="Cliente" Disabled>
-            <button class="btn btn-outline-secondary" type="button" id="button-addon2" onclick="return Cerrar();" data-bs-target="#exampleModal"><img src="/../lupa.png" width="25px" height="25px"></button>
+            <button class="btn btn-outline-secondary" type="button" id="button-addon2" data-bs-toggle="modal" data-bs-target="#exampleModal"><img src="/../lupa.png" width="25px" height="25px"></button>
           </div>
         </div>
         <div class="col-3">
@@ -153,7 +153,7 @@
             </form>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-danger" >Cancelar</button>
+            <button type="button" class="btn btn-danger" data-bs-dismiss="modal" onkeypress="Cerrar();">Cancelar</button>
             <button type="button" class="btn btn-success" id="boton" data-placement="bottom">Aceptar</button>
           </div>
         </div>
@@ -185,10 +185,6 @@
        FAnv_AMaterno.addEventListener('keyup', Tecla);
        limpiar.addEventListener('click', Limpiar);
        boton.addEventListener('click', Aceptar);
-
-       function Cerrar(e){
-        $("#exampleModal").modal('show');
-       }
 
        function Limpiar(e){
          FAnv_Nombres.value = "";
