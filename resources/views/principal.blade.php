@@ -11,11 +11,17 @@
     <br>
     <div class="container">
       <div class="row">
-        <div class="col-5">
+        <div class="col-3">
+
+        </div>
+        <div class="col-6">
           <div class="input-group mb-3">
-            <input type="text" class="form-control" aria-label="Recipient's username" aria-describedby="button-addon2" id="Cliente" Disabled>
-            <button class="btn btn-outline-secondary" type="button" id="button-addon2" data-bs-toggle="modal" data-bs-target="#exampleModal">Button</button>
+            <input type="text" class="form-control" aria-label="Recipient's username" aria-describedby="button-addon2" id="Cliente" placeholder="Cliente" Disabled>
+            <button class="btn btn-outline-secondary" type="button" id="button-addon2" onclick="return Cerrar();" data-bs-target="#exampleModal"><img src="/../lupa.png" width="25px" height="25px"></button>
           </div>
+        </div>
+        <div class="col-3">
+
         </div>
       </div>
     </div>
@@ -33,118 +39,121 @@
               <div class="container">
               
                 <div class="row">
-                  <div class="col-3">
+                  <div class="col-3 col-sm-3">
                     Nombres
                   </div>
-                  <div class="col-3">
+                  <div class="col-3 col-sm-3">
                     Ap. Paterno
                   </div>
-                  <div class="col-3">
+                  <div class="col-3 col-sm-3">
                     Ap. Materno
                   </div>
-                  <div class="col-3">
+                  <div class="col-3 col-sm-3">
                     Fecha de nacimiento
                   </div>
                 </div>
                 <div class="row">
-                  <div class="col-3">
-                    <input type="text" class="form-control" id="FAnv_Nombres" for="validationCustomUsername"required>
+                  <div class="col-3 col-sm-3">
+                    <input type="text" class="form-control" id="FAnv_Nombres" for="validationCustomUsername" required>
                   </div>
-                  <div class="col-3">
+                  <div class="col-3 col-sm-3">
                     <input type="text" class="form-control" id="FAnv_APaterno" for="validationCustomUsername" required>
                   </div>
-                  <div class="col-3">
+                  <div class="col-3 col-sm-3">
                     <input type="text" class="form-control" id="FAnv_AMaterno" for="validationCustomUsername" required>
                   </div>
-                  <div class="col-3">
+                  <div class="col-3 col-sm-3">
                     <input type="date" class="form-control" id="FAdt_FechaNac" for="validationCustomUsername" required>
                   </div>
                 </div>
               
                 <div class="row">
-                  <div class="col-4">
+                  <div class="col-4 col-sm-4">
                     CURP
                   </div>
-                  <div class="col-4">
+                  <div class="col-4 col-sm-4">
                     RFC
                   </div>
-                  <div class="col-4">
+                  <div class="col-4 col-sm-4">
                     INE
                   </div>
                 </div>
+
                 <div class="row">
-                  <div class="col-4">
+                  <div class="col-4 col-sm-4">
                     <input type="text" class="form-control" id="FAnv_CURP">
                   </div>
-                  <div class="col-4">
+                  <div class="col-4 col-sm-4">
                     <input type="text" class="form-control" id="FAnv_RFC">
                   </div>
-                  <div class="col-4">
+                  <div class="col-4 col-sm-4">
                     <input type="text" class="form-control" id="FAnv_IFE">
                   </div>
                 </div>
                 <br>
 
                 <div class="row">
-                  <div class="col-3">
+                  <div class="col-3 col-sm-3">
                     CP
                   </div>
-                  <div class="col-3">
+                  <div class="col-3 col-sm-3">
                     Colonia
                   </div>
-                  <div class="col-4">
+                  <div class="col-4 col-sm-4">
                     Calle
                   </div>
-                  <div class="col-2">
+                  <div class="col-2 col-sm-2">
                     Ciudad
                   </div>
                 </div>
                 <div class="row">
-                  <div class="col-3">
-                    <input type="text" class="form-control" id="FAnv_ApartadoPost">
+                  <div class="col-3 col-sm-3">
+                    <input type="text" class="form-control" id="FAnv_ApartadoPost" onkeypress="return Restric(event);">
                   </div>
-                  <div class="col-3">
+                  <div class="col-3 col-sm-3">
                     <select class="form-select" id="FAnv_FiscalColonia">
                     </select>
                   </div>
-                  <div class="col-4">
+                  <div class="col-4 col-sm-4">
                     <input type="text" class="form-control" id="FAnv_Calle">
                   </div>
-                  <div class="col-2">
+                  <div class="col-2 col-sm-2">
                     <input type="text" class="form-control" id="FAnv_FiscalCd" disabled>
                   </div>
                 </div>
                 <br>
 
                 <div class="row">
-                  <div class="col-4">
+                  <div class="col-4 col-sm-4">
                     Telefono
                   </div>
-                  <div class="col-4">
+                  <div class="col-4 col-sm-4">
                     Celular
                   </div>
                 </div>
+
                 <div class="row">
-                  <div class="col-4">
-                    <input type="text" class="form-control" id="FAnv_Tel">
+                  <div class="col-4 col-sm-4">
+                    <input type="text" class="form-control" id="FAnv_Tel" onkeypress="return Restric(event);">
                   </div>
-                  <div class="col-4">
-                    <input type="text" class="form-control" id="FAnv_Cel">
+                  <div class="col-4 col-sm-4">
+                    <input type="text" class="form-control" id="FAnv_Cel" onkeypress="return Restric(event);">
                   </div>
                 </div>
+
                 <br>
 
                 <div class="row">
-                  <div class="col-10"> </div>
-                  <div class="col-2">
-                    <button type="button" id="limpiar" class="btn btn-warning float-right" >Limpiar</button>
+                  <div class="col-11 col-sm-10 col-sm-10"> </div>
+                  <div class="col-1 col-sm-1 col-xms-1">
+                    <button type="button" id="limpiar" class="btn btn-warning float-right"> <img src="/../clean.png" width="25px" height="25px"> </button>
                   </div>
                 </div>
               </div>
             </form>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
+            <button type="button" class="btn btn-danger" >Cancelar</button>
             <button type="button" class="btn btn-success" id="boton" data-placement="bottom">Aceptar</button>
           </div>
         </div>
@@ -176,6 +185,10 @@
        FAnv_AMaterno.addEventListener('keyup', Tecla);
        limpiar.addEventListener('click', Limpiar);
        boton.addEventListener('click', Aceptar);
+
+       function Cerrar(e){
+        $("#exampleModal").modal('show');
+       }
 
        function Limpiar(e){
          FAnv_Nombres.value = "";
@@ -280,6 +293,18 @@
        function Tecla(e){
          if(e.code === "Enter"){
            Traer();
+         }
+       }
+
+       //FUNCTION PARA SOLO ADMITIR NUMEROS EN LOS INPUTS DE LOS TELEFONOS
+       function Restric(e){
+        var code = (e.which) ? e.which : e.code;
+         if(code==8) { // backspace.
+           return true;
+         } else if(code>=48 && code<=57) { // is a number.
+           return true;
+         } else{ // other keys.
+           return false;
          }
        }
 
