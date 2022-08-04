@@ -12,7 +12,7 @@ class Clientes extends Controller
     public function SHOW(Request $request){
       $cliente = DB::table('FATB_Clientes')->where('FAnv_Razon', $request->FAnv_Nombres.' '.$request->FAnv_APaterno.' '.$request->FAnv_AMaterno)
                    ->select('FAnv_Nombres', 'FAnv_APaterno', 'FAnv_AMaterno', 'FAnv_FiscalCd', 'FAnv_FiscalColonia', 'FAnv_ApartadoPost', 'FAnv_Calle', 'FAnv_Tel',
-                              'FAnv_Cel', 'FAnv_CURP', 'FAnv_RFC', 'FAnv_IFE', 'FAdt_FechaNac')
+                            'FAnv_Cel', 'FAnv_CURP', 'FAnv_RFC', 'FAnv_IFE', 'FAdt_FechaNac')
                    ->get();
       return $cliente;
     }
@@ -64,7 +64,7 @@ class Clientes extends Controller
                ->get();
 
       $cliente = $cli[0];
-
+      
       if($cliente->FAnv_Nombres != strtoupper($request->FAnv_Nombres) || $cliente->FAnv_APaterno != strtoupper($request->FAnv_APaterno) ||
          $cliente->FAnv_AMaterno != strtoupper($request->FAnv_AMaterno) || $cliente->FAnv_FiscalCd != $request->FAnv_FiscalCd ||
          $cliente->FAnv_ApartadoPost != $request->FAnv_ApartadoPost || $cliente->FAnv_Calle != strtoupper($request->FAnv_Calle) ||
@@ -72,9 +72,9 @@ class Clientes extends Controller
          $cliente->FAnv_RFC != strtoupper($request->FAnv_RFC) || $cliente->FAnv_IFE != strtoupper($request->FAnv_IFE) ||
          $cliente->FAdt_FechaNac != $request->FAdt_FechaNac){
            return self::Actualizar($request);
-      }
+         }
       else{
-           
+        
       }
     }
 
@@ -86,7 +86,7 @@ class Clientes extends Controller
       $estado = DB::table('FATB_CodigosPostales')->where('CP', $CP)
                   ->select('Estado')
                   ->first();
-
+      
       $estad = "";
 
       foreach($estado as $est){
@@ -101,7 +101,7 @@ class Clientes extends Controller
                      ->first();
       $mun = "";
       foreach($municipio as $mu){
-            $mun = $municipio->Municipio;
+        $mun = $municipio->Municipio;
       }
       return $mun;
     }
@@ -331,7 +331,7 @@ class Clientes extends Controller
                       'FAnv_Municipio' => self::Municipio($request->FAnv_ApartadoPost),
                       'FAnv_Estado' => self::Estado($request->FAnv_ApartadoPost),
                       'FAnv_APaterno' => strtoupper($request->FAnv_APaterno),
-                      'FAnv_AMaterno' => strtoupper($request->FAnv_AMaterno),
+                      'FAnv_AMaterno' => strtoupper($request->Fanv_AMaterno),
                       'FAnv_Nombres' => strtoupper($request->FAnv_Nombres),
                       'FAnv_IFE' => strtoupper($request->FAnv_IFE),
                       'FAdt_FechaNac' => $request->FAdt_FechaNac,

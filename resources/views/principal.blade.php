@@ -90,7 +90,6 @@
                     <input type="text" class="form-control" id="FAnv_IFE">
                   </div>
                 </div>
-                <br>
 
                 <div class="row">
                   <div class="col-3 col-sm-3">
@@ -106,6 +105,7 @@
                     Ciudad
                   </div>
                 </div>
+
                 <div class="row">
                   <div class="col-3 col-sm-3">
                     <input type="text" class="form-control" id="FAnv_ApartadoPost" onkeypress="return Restric(event);">
@@ -121,7 +121,6 @@
                     <input type="text" class="form-control" id="FAnv_FiscalCd" disabled>
                   </div>
                 </div>
-                <br>
 
                 <div class="row">
                   <div class="col-4 col-sm-4">
@@ -140,8 +139,6 @@
                     <input type="text" class="form-control" id="FAnv_Cel" onkeypress="return Restric(event);">
                   </div>
                 </div>
-
-                <br>
 
                 <div class="row">
                   <div class="col-11 col-sm-10 col-sm-10"> </div>
@@ -162,21 +159,21 @@
 
     <script type="text/javascript">
        const FAnv_FiscalColonia = document.getElementById('FAnv_FiscalColonia');
-	     const FAnv_ApartadoPost = document.getElementById('FAnv_ApartadoPost');
-	     const FAnv_APaterno = document.getElementById('FAnv_APaterno');
-	     const FAnv_AMaterno = document.getElementById('FAnv_AMaterno');
-	     const FAnv_FiscalCd = document.getElementById('FAnv_FiscalCd');
+       const FAnv_ApartadoPost = document.getElementById('FAnv_ApartadoPost');
+       const FAnv_APaterno = document.getElementById('FAnv_APaterno');
+       const FAnv_AMaterno = document.getElementById('FAnv_AMaterno');
+       const FAnv_FiscalCd = document.getElementById('FAnv_FiscalCd');
        const FAnv_Nombres = document.getElementById('FAnv_Nombres');
        const FAdt_FechaNac = document.getElementById('FAdt_FechaNac');
-	     const FAnv_Calle = document.getElementById('FAnv_Calle');
+       const FAnv_Calle = document.getElementById('FAnv_Calle');
        const FAnv_CURP = document.getElementById('FAnv_CURP');
        const FAnv_Tel = document.getElementById('FAnv_Tel');
-	     const FAnv_Cel = document.getElementById('FAnv_Cel');
+       const FAnv_Cel = document.getElementById('FAnv_Cel');
        const FAnv_RFC = document.getElementById('FAnv_RFC');
        const FAnv_IFE = document.getElementById('FAnv_IFE');
        const limpiar = document.getElementById('limpiar');
        const Cliente = document.getElementById('Cliente');
-	     const Tool = document.getElementById('tooltip');
+       const Tool = document.getElementById('tooltip');
        const boton = document.getElementById('boton');
        var Colonos;
        var Cli;
@@ -188,17 +185,17 @@
 
        function Limpiar(e){
          FAnv_Nombres.value = "";
-		     FAnv_APaterno.value = "";
-		     FAnv_AMaterno.value = "";
-		     FAnv_FiscalCd.value = "";
+         FAnv_APaterno.value = "";
+         FAnv_AMaterno.value = "";
+         FAnv_FiscalCd.value = "";
          FAnv_ApartadoPost.value = "";
-		     FAnv_Calle.value = "";
-		     FAnv_Tel.value = "";
-		     FAnv_Cel.value = "";
-		     FAnv_CURP.value = "";
-		     FAnv_RFC.value = "";
-		     FAnv_IFE.value = "";
-		     FAdt_FechaNac.value = "";
+         FAnv_Calle.value = "";
+         FAnv_Tel.value = "";
+         FAnv_Cel.value = "";
+         FAnv_CURP.value = "";
+         FAnv_RFC.value = "";
+         FAnv_IFE.value = "";
+         FAdt_FechaNac.value = "";
          while(FAnv_FiscalColonia.options.length > 0){
            FAnv_FiscalColonia.remove(0);
          }
@@ -294,14 +291,14 @@
 
        //FUNCTION PARA SOLO ADMITIR NUMEROS EN LOS INPUTS DE LOS TELEFONOS
        function Restric(e){
-        var code = (e.which) ? e.which : e.code;
-         if(code==8) { // backspace.
-           return true;
-         } else if(code>=48 && code<=57) { // is a number.
-           return true;
-         } else{ // other keys.
-           return false;
-         }
+         var code = (e.which) ? e.which : e.code;
+           if(code == 8){
+             return true;
+           } else if(code >= 48 && code <= 57){
+             return true;
+           } else{
+             return false;
+           }
        }
 
        function Traer(e){
@@ -361,7 +358,6 @@
                icon: 'error',
                title: 'No es posible completar la operación.'
              });
-             FAnv_Nombres.background = "#f3431e";
            }
          });
        }
