@@ -34,7 +34,7 @@
             <h5 class="modal-title" id="exampleModalLabel">Clientes</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
-          <div class="modal-body">
+          <div class="modal-body" id="Cuerpo">
             <form id="my-form">
               <div class="container">
               
@@ -66,7 +66,7 @@
                     <input type="date" class="form-control" id="FAdt_FechaNac" for="validationCustomUsername" required>
                   </div>
                 </div>
-              
+
                 <div class="row">
                   <div class="col-4 col-sm-4">
                     CURP
@@ -215,7 +215,7 @@
                toast: true,
                position: 'top-end',
                showConfirmButton: false,
-               timer: 3000,
+               timer: 2000,
                didOpen: (toast) => {
                  toast.addEventListener('mouseenter', Swal.stopTimer)
                  toast.addEventListener('mouseleave', Swal.resumeTimer)
@@ -246,7 +246,7 @@
                    toast: true,
                    position: 'top-end',
                    showConfirmButton: false,
-                   timer: 3000,
+                   timer: 2000,
                    didOpen: (toast) => {
                      toast.addEventListener('mouseenter', Swal.stopTimer)
                      toast.addEventListener('mouseleave', Swal.resumeTimer)
@@ -265,7 +265,7 @@
                  toast: true,
                  position: 'top-end',
                  showConfirmButton: false,
-                 timer: 3000,
+                 timer: 2000,
                  didOpen: (toast) => {
                    toast.addEventListener('mouseenter', Swal.stopTimer)
                    toast.addEventListener('mouseleave', Swal.resumeTimer)
@@ -347,7 +347,7 @@
                toast: true,
                position: 'top-end',
                showConfirmButton: false,
-               timer: 3000,
+               timer: 2000,
                didOpen: (toast) => {
                  toast.addEventListener('mouseenter', Swal.stopTimer)
                  toast.addEventListener('mouseleave', Swal.resumeTimer)
@@ -358,6 +358,7 @@
                icon: 'error',
                title: 'No es posible completar la operación.'
              });
+
            }
          });
        }
@@ -376,7 +377,7 @@
                  toast: true,
                  position: 'top-end',
                  showConfirmButton: false,
-                 timer: 3000,
+                 timer: 2000,
                  didOpen: (toast) => {
                    toast.addEventListener('mouseenter', Swal.stopTimer)
                    toast.addEventListener('mouseleave', Swal.resumeTimer)
@@ -385,8 +386,8 @@
 
                Toast.fire({
                  icon: 'error',
-                 title: 'No es posible completar la operación.'
-               });
+                 title: 'No es posible completar la operación'
+               })
              }
            });
          }
@@ -422,7 +423,7 @@
                  toast: true,
                  position: 'top-end',
                  showConfirmButton: false,
-                 timer: 3000,
+                 timer: 2000,
                  didOpen: (toast) => {
                    toast.addEventListener('mouseenter', Swal.stopTimer)
                    toast.addEventListener('mouseleave', Swal.resumeTimer)
