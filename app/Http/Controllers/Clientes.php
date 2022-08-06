@@ -17,11 +17,17 @@ class Clientes extends Controller
       return $cliente;
     }
 
+    public function SHOW1(Request $request){
+      $cliente = DB::table('FATB_Clientes')->where('FAnv_CURP', '')
+                   ->select('FAnv_Nombres', 'FAnv_APaterno', 'FAnv_AMaterno')
+                   ->get();
+      return $cliente;
+    }
+
     public function Validar(Request $request){
       $cliente = DB::table('FATB_Clientes')->where('FAnv_Razon', $request->FAnv_Nombres.' '.$request->FAnv_APaterno.' '.$request->FAnv_AMaterno)
                    ->where('FAnv_CURP', $request->FAnv_CURP)
                    ->count();
-
       if($cliente == 0){
         return self::Insertar($request);
       }
@@ -38,7 +44,7 @@ class Clientes extends Controller
       $num = 0;
 
       foreach($colonias as $col){
-        $colon[$num] = $col->Colonia;
+        $colon[$num] = $col->colonia;
         $num ++;
       }
       return $colon;
@@ -49,9 +55,8 @@ class Clientes extends Controller
                      ->select('Municipio')
                      ->first();
       $mun = "";
-
       foreach($municipio as $mu){
-        $mun = $municipio->Municipio;
+        $mun = $municipio	->Municipio;
       }
       return $mun;
     }
@@ -86,7 +91,7 @@ class Clientes extends Controller
       $estado = DB::table('FATB_CodigosPostales')->where('CP', $CP)
                   ->select('Estado')
                   ->first();
-      
+
       $estad = "";
 
       foreach($estado as $est){
@@ -313,7 +318,8 @@ class Clientes extends Controller
 
     public function Actualizar(Request $request){
       $update = DB::table('FATB_Clientes')
-                  ->where('FAnv_CURP', $request->FAnv_CURP)
+                  ->where('FAnv_Razon', strtoupper($request->FAnv_Nombres).' '.strtoupper($request->FAnv_APaterno).' '.strtoupper($request->FAnv_AMaterno))
+                  ->where('FAnv_CURP', stortupper($request->FAnv_CURP))
                   ->update([
                       'FAnv_Razon' => strtoupper($request->FAnv_Nombres).' '.strtoupper($request->FAnv_APaterno).' '.strtoupper($request->FAnv_AMaterno),
                       'FAnv_Cd' => self::Municipio($request->FAnv_ApartadoPost),
