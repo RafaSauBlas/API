@@ -185,17 +185,30 @@
 
        function Limpiar(e){
          FAnv_Nombres.value = "";
+         FAnv_Nombres.style.borderColor = "#d6d6d6";
          FAnv_APaterno.value = "";
+         FAnv_APaterno.style.borderColor = "#d6d6d6";
          FAnv_AMaterno.value = "";
+         FAnv_AMaterno.style.borderColor = "#d6d6d6";
          FAnv_FiscalCd.value = "";
+         FAnv_FiscalCd.style.borderColor = "#d6d6d6";
          FAnv_ApartadoPost.value = "";
+         FAnv_ApartadoPost.style.borderColor = "#d6d6d6";
          FAnv_Calle.value = "";
+         FAnv_Calle.style.borderColor = "#d6d6d6";
          FAnv_Tel.value = "";
+         FAnv_Tel.style.borderColor = "#d6d6d6";
          FAnv_Cel.value = "";
+         FAnv_Cel.style.borderColor = "#d6d6d6";
          FAnv_CURP.value = "";
+         FAnv_CURP.style.borderColor = "#d6d6d6";
          FAnv_RFC.value = "";
+         FAnv_RFC.style.borderColor = "#d6d6d6";
          FAnv_IFE.value = "";
+         FAnv_IFE.style.borderColor = "#d6d6d6";
          FAdt_FechaNac.value = "";
+         FAdt_FechaNac.style.borderColor = "#d6d6d6";
+         FAnv_FiscalColonia.style.borderColor = "#d6d6d6";
          while(FAnv_FiscalColonia.options.length > 0){
            FAnv_FiscalColonia.remove(0);
          }
@@ -302,6 +315,11 @@
        }
 
        function Traer(e){
+        //Este metodo es para limpiar el select del CP
+        while(FAnv_FiscalColonia.options.length > 0){
+           FAnv_FiscalColonia.remove(0);
+         }
+
          $.ajax({
            url: 'http://127.0.0.1:8000/api/clientes/traer',
            type: 'GET',

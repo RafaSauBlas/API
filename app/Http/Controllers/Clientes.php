@@ -308,7 +308,7 @@ class Clientes extends Controller
           'FAbt_CanjeLinea' => 0,
           'FAdc_IdZT'=> 0,
         ]);
-      return "Se ha registrado el cliente correctamente.";
+      return "El cliente se ha registrado correctamente.";
     }
 
     public function Actualizar(Request $request){
@@ -321,7 +321,7 @@ class Clientes extends Controller
                       'FAnv_FiscalColonia' => strtoupper($request->FAnv_FiscalColonia),
                       'FAin_FiscalCP' => $request->FAnv_ApartadoPost,
                       'FAnv_ApartadoPost' => $request->FAnv_ApartadoPost,
-                      'FAnv_DirFiscal' => strtoupper($request->FAnv_Calle),
+                      'FAnv_DirFiscal' => strtoupper($request->Fanv_Calle),
                       'FAnv_Calle' => strtoupper($request->FAnv_Calle),
                       'FAnv_Tel' => $request->FAnv_Tel,
                       'FAnv_Cel' => $request->FAnv_Cel,
@@ -331,13 +331,13 @@ class Clientes extends Controller
                       'FAnv_Municipio' => self::Municipio($request->FAnv_ApartadoPost),
                       'FAnv_Estado' => self::Estado($request->FAnv_ApartadoPost),
                       'FAnv_APaterno' => strtoupper($request->FAnv_APaterno),
-                      'FAnv_AMaterno' => strtoupper($request->Fanv_AMaterno),
+                      'FAnv_AMaterno' => strtoupper($request->FAnv_AMaterno),
                       'FAnv_Nombres' => strtoupper($request->FAnv_Nombres),
                       'FAnv_IFE' => strtoupper($request->FAnv_IFE),
                       'FAdt_FechaNac' => $request->FAdt_FechaNac,
-                      'FAdt_FecNac' => $request->FAdt_FechaNac
-                    ]);
-      return "Se ha actualizado el cliente correctamente.";
+                      'FAdt_Fecnac' => $request->FAdt_FechaNac
+                  ]);
+      return "El cliente se ha actualizado correctamente.";
     }
 
 }
