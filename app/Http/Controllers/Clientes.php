@@ -44,7 +44,7 @@ class Clientes extends Controller
       $num = 0;
 
       foreach($colonias as $col){
-        $colon[$num] = $col->colonia;
+        $colon[$num] = $col->Colonia;
         $num ++;
       }
       return $colon;
@@ -319,7 +319,7 @@ class Clientes extends Controller
     public function Actualizar(Request $request){
       $update = DB::table('FATB_Clientes')
                   ->where('FAnv_Razon', strtoupper($request->FAnv_Nombres).' '.strtoupper($request->FAnv_APaterno).' '.strtoupper($request->FAnv_AMaterno))
-                  ->where('FAnv_CURP', stortupper($request->FAnv_CURP))
+                  ->where('FAnv_CURP', strtoupper($request->FAnv_CURP))
                   ->update([
                       'FAnv_Razon' => strtoupper($request->FAnv_Nombres).' '.strtoupper($request->FAnv_APaterno).' '.strtoupper($request->FAnv_AMaterno),
                       'FAnv_Cd' => self::Municipio($request->FAnv_ApartadoPost),

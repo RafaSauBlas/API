@@ -284,7 +284,6 @@
                    toast.addEventListener('mouseleave', Swal.resumeTimer)
                  }
                });
-               
                Toast.fire({
                  icon: 'error',
                  title: 'No es posible completar la operación.'
