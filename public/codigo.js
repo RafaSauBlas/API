@@ -1,163 +1,7 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Pagina principal</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
-  </head>
-  <body>
-    <br>
-    <div class="container">
-      <div class="row">
-        <div class="col-3">
+       const documento = document.createElement("documento");
+       documento.href = "/../resources/views/principal.blade.php";
+       documento.target = "principal.blade.php";
 
-        </div>
-        <div class="col-6">
-          <div class="input-group mb-3">
-            <input type="text" class="form-control" aria-label="Recipient's username" aria-describedby="button-addon2" id="Cliente" placeholder="Cliente" Disabled>
-            <button class="btn btn-outline-secondary" type="button" id="button-addon2" data-bs-toggle="modal" data-bs-target="#exampleModal"><img src="/../lupa.png" width="25px" height="25px"></button>
-          </div>
-        </div>
-        <div class="col-3">
-
-        </div>
-      </div>
-    </div>
-
-    <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog modal-xl">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Clientes</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body" id="Cuerpo">
-            <form id="my-form">
-              <div class="container">
-              
-                <div class="row">
-                  <div class="col-3 col-sm-3">
-                    Nombres
-                  </div>
-                  <div class="col-3 col-sm-3">
-                    Ap. Paterno
-                  </div>
-                  <div class="col-3 col-sm-3">
-                    Ap. Materno
-                  </div>
-                  <div class="col-3 col-sm-3">
-                    Fecha de nacimiento
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-3 col-sm-3">
-                    <input type="text" class="form-control" id="FAnv_Nombres" for="validationCustomUsername" required>
-                  </div>
-                  <div class="col-3 col-sm-3">
-                    <input type="text" class="form-control" id="FAnv_APaterno" for="validationCustomUsername" required>
-                  </div>
-                  <div class="col-3 col-sm-3">
-                    <input type="text" class="form-control" id="FAnv_AMaterno" for="validationCustomUsername" required>
-                  </div>
-                  <div class="col-3 col-sm-3">
-                    <input type="date" class="form-control" id="FAdt_FechaNac" for="validationCustomUsername" required>
-                  </div>
-                </div>
-
-                <div class="row">
-                  <div class="col-4 col-sm-4">
-                    CURP
-                  </div>
-                  <div class="col-4 col-sm-4">
-                    RFC
-                  </div>
-                  <div class="col-4 col-sm-4">
-                    INE
-                  </div>
-                </div>
-
-                <div class="row">
-                  <div class="col-4 col-sm-4">
-                    <input type="text" class="form-control" id="FAnv_CURP">
-                  </div>
-                  <div class="col-4 col-sm-4">
-                    <input type="text" class="form-control" id="FAnv_RFC">
-                  </div>
-                  <div class="col-4 col-sm-4">
-                    <input type="text" class="form-control" id="FAnv_IFE">
-                  </div>
-                </div>
-
-                <div class="row">
-                  <div class="col-3 col-sm-3">
-                    CP
-                  </div>
-                  <div class="col-3 col-sm-3">
-                    Colonia
-                  </div>
-                  <div class="col-4 col-sm-4">
-                    Calle
-                  </div>
-                  <div class="col-2 col-sm-2">
-                    Ciudad
-                  </div>
-                </div>
-
-                <div class="row">
-                  <div class="col-3 col-sm-3">
-                    <input type="text" class="form-control" id="FAnv_ApartadoPost" onkeypress="return Restric(event);">
-                  </div>
-                  <div class="col-3 col-sm-3">
-                    <select class="form-select" id="FAnv_FiscalColonia">
-                    </select>
-                  </div>
-                  <div class="col-4 col-sm-4">
-                    <input type="text" class="form-control" id="FAnv_Calle">
-                  </div>
-                  <div class="col-2 col-sm-2">
-                    <input type="text" class="form-control" id="FAnv_FiscalCd" disabled>
-                  </div>
-                </div>
-
-                <div class="row">
-                  <div class="col-4 col-sm-4">
-                    Telefono
-                  </div>
-                  <div class="col-4 col-sm-4">
-                    Celular
-                  </div>
-                </div>
-
-                <div class="row">
-                  <div class="col-4 col-sm-4">
-                    <input type="text" class="form-control" id="FAnv_Tel" onkeypress="return Restric(event);">
-                  </div>
-                  <div class="col-4 col-sm-4">
-                    <input type="text" class="form-control" id="FAnv_Cel" onkeypress="return Restric(event);">
-                  </div>
-                </div>
-
-                <div class="row">
-                  <div class="col-11 col-sm-10 col-sm-10"> </div>
-                  <div class="col-1 col-sm-1 col-xms-1">
-                    <button type="button" id="limpiar" class="btn btn-warning float-right"> <img src="/../clean.png" width="25px" height="25px"> </button>
-                  </div>
-                </div>
-              </div>
-            </form>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-danger" data-bs-dismiss="modal" onkeypress="Cerrar();">Cancelar</button>
-            <button type="button" class="btn btn-success" id="boton" data-placement="bottom">Aceptar</button>
-          </div>
-        </div>
-      </div>
-    </div>
-    
-    <script type="text/javascript">
        const FAnv_FiscalColonia = document.getElementById('FAnv_FiscalColonia');
        const FAnv_ApartadoPost = document.getElementById('FAnv_ApartadoPost');
        const FAnv_APaterno = document.getElementById('FAnv_APaterno');
@@ -216,7 +60,7 @@
        }
 
        function Aceptar(e){
-         var elementos = document.getElementById("my-form").elements;
+         var elementos = documento.getElementById("my-form").elements;
          var valor = 0;
          for(var i = 0, element; element = elementos[i++];){
            if(element.id != "FAnv_FiscalCd" && element.type != "button" && element.value === ""){
@@ -245,7 +89,7 @@
              element.style.borderColor = "#d6d6d6";
            }
          }
-         
+
          if(valor == 0){
            $.ajax({
              url: 'http://127.0.0.1:8000/api/clientes/verificar',
@@ -270,6 +114,8 @@
                    icon: 'success',
                    title: respuesta
                  });
+
+                 Cliente.value = FAnv_Nombres.value.toUpperCase()+' '+FAnv_APaterno.value.toUpperCase()+' '+FAnv_AMaterno.value.toUpperCase();
                }
                $("#exampleModal").modal('hide');
              },
@@ -284,7 +130,7 @@
                    toast.addEventListener('mouseleave', Swal.resumeTimer)
                  }
                });
-               
+
                Toast.fire({
                  icon: 'error',
                  title: 'No es posible completar la operación.'
@@ -358,6 +204,7 @@
 		           FAnv_IFE.value = respuesta[0].FAnv_IFE;
 		           FAdt_FechaNac.value = respuesta[0].FAdt_FechaNac;
                Cli = respuesta[0].FAnv_Nombres + ' ' + respuesta[0].FAnv_APaterno + ' ' + respuesta[0].FAnv_AMaterno;
+               FAnv_FiscalColonia.value = Colonos;
              }
            },
            error: function(){
@@ -380,7 +227,7 @@
            }
          });
        }
-       
+
        function Ciudad(e){
          if(FAnv_ApartadoPost.value.length == 5){
            $.ajax({
@@ -425,7 +272,7 @@
              success: function(respuesta){
                Ciudad();
                for(i = 0; i < respuesta.length; i++){
-                 var option = document.createElement("option");
+                 var option = documento.createElement("option");
                      option.text = respuesta[i];
                      FAnv_FiscalColonia.add(option);
                }
@@ -461,8 +308,3 @@
            }
          }
        }
-    </script>
-    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
-  </body>
-</html>
