@@ -11,22 +11,93 @@
     <br>
     <div class="container">
       <div class="row">
-        <div class="col-3">
-
+        <div class="col-2">
+          # Distrib
         </div>
+        <div class="col-4">
+          Distribuidor
+        </div>
+        <div class="col-4">
+          No. Referencia
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-2">
+          <input typre="text" class="form-control" value="250513" disabled>
+        </div>
+        <div class="col-4">
+          <input typre="text" class="form-control" value="RAFAEL SAUCEDO BLAS" disabled>
+        </div>
+        <div class="col-4">
+          <input typre="text" class="form-control" value="32122513" disabled>
+        </div>
+      </div>
+
+      <br>
+
+      <div class="row">
+        <div class="col-6">
+          Cliente
+        </div>
+        <div class="col-3">
+          Vale
+        </div>
+        <div class="col-3">
+          Saldo
+        </div>
+      </div>
+      <div class="row">
         <div class="col-6">
           <div class="input-group mb-3">
             <input type="text" class="form-control" aria-label="Recipient's username" aria-describedby="button-addon2" id="Cliente" placeholder="Cliente" Disabled>
-            <button class="btn btn-outline-secondary" type="button" id="button-addon2" data-bs-toggle="modal" data-bs-target="#exampleModal"><img src="/../lupa.png" width="25px" height="25px"></button>
+            <button class="btn btn-outline-secondary" type="button" id="button-addon2" data-bs-toggle="modal" data-bs-target="#exampleModal"><img src="/../Iconos/lupa.png" width="25px" height="25px"></button>
           </div>
         </div>
         <div class="col-3">
+          <input typre="text" class="form-control" value="191501" disabled>
+        </div>
+        <div class="col-3">
+          <input typre="text" class="form-control" value="$15,000" disabled>
+        </div>
+      </div>
+      <br>
 
+      <div class="row">
+        <div class="col-3">
+          Sub total
+        </div>
+        <div class="col-3">
+          Descuento
+        </div>
+        <div class="col-3">
+          Total
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-3">
+          <input typre="text" class="form-control" value="$1,000" disabled>
+        </div>
+        <div class="col-3">
+          <input typre="text" class="form-control" value="10 %" disabled>
+        </div>
+        <div class="col-3">
+          <input typre="text" class="form-control" value="$900" disabled>
         </div>
       </div>
     </div>
 
-    <!-- Modal -->
+
+
+
+
+
+
+
+
+
+
+    <!-- ========== Modal ========== -->
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog modal-xl">
         <div class="modal-content">
@@ -143,15 +214,15 @@
                 <div class="row">
                   <div class="col-11 col-sm-10 col-sm-10"> </div>
                   <div class="col-1 col-sm-1 col-xms-1">
-                    <button type="button" id="limpiar" class="btn btn-warning float-right"> <img src="/../clean.png" width="25px" height="25px"> </button>
+                    <button type="button" id="limpiar" class="btn btn-warning float-right"> <img src="/../Iconos/clean.png" width="25px" height="25px"> </button>
                   </div>
                 </div>
               </div>
             </form>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-danger" data-bs-dismiss="modal" onkeypress="Cerrar();">Cancelar</button>
-            <button type="button" class="btn btn-success" id="boton" data-placement="bottom">Aceptar</button>
+            <button type="button" class="btn btn-danger" data-bs-dismiss="modal" onkeypress="Cerrar();"><img src="/../Iconos/tache.png" width="25px" height="25px"></button>
+            <button type="button" class="btn btn-success" id="boton" data-placement="bottom"><img src="/../Iconos/palomita.png" width="25px" height="25px"></button>
           </div>
         </div>
       </div>
