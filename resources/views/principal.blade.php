@@ -6,10 +6,12 @@
     <title>Pagina principal</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+    <link href="../css/Estail.css" rel="stylesheet">
   </head>
   <body>
     <br>
-    <div class="container">
+    <div class="container" id="Contenedor">
+      <br>
       <div class="row">
         <div class="col-2">
           # Distrib
@@ -24,13 +26,13 @@
 
       <div class="row">
         <div class="col-2">
-          <input typre="text" class="form-control" value="250513" disabled>
+          <input type="text" class="form-control" value="250513" Disabled>
         </div>
         <div class="col-4">
-          <input typre="text" class="form-control" value="RAFAEL SAUCEDO BLAS" disabled>
+          <input type="text" class="form-control" value="RAFAEL SAUCEDO BLAS" Disabled>
         </div>
         <div class="col-4">
-          <input typre="text" class="form-control" value="32122513" disabled>
+          <input type="text" class="form-control" value="32122513" Disabled>
         </div>
       </div>
 
@@ -47,6 +49,7 @@
           Saldo
         </div>
       </div>
+
       <div class="row">
         <div class="col-6">
           <div class="input-group mb-3">
@@ -55,10 +58,10 @@
           </div>
         </div>
         <div class="col-3">
-          <input typre="text" class="form-control" value="191501" disabled>
+          <input type="text" class="form-control" value="191501" Disabled>
         </div>
         <div class="col-3">
-          <input typre="text" class="form-control" value="$15,000" disabled>
+          <input type="text" class="form-control" value="$15,000" Disabled>
         </div>
       </div>
       <br>
@@ -74,21 +77,30 @@
           Total
         </div>
       </div>
+
       <div class="row">
         <div class="col-3">
-          <input typre="text" class="form-control" value="$1,000" disabled>
+          <input type="text" class="form-control" value="$1,000" Disabled>
         </div>
         <div class="col-3">
-          <input typre="text" class="form-control" value="10 %" disabled>
+          <input type="text" class="form-control" value="10 %" Disabled>
         </div>
         <div class="col-3">
-          <input typre="text" class="form-control" value="$900" disabled>
+          <input type="text" class="form-control" value="$900" Disabled>
         </div>
       </div>
+
+      <br>
+      <div class="row">
+        <div class="col-10">
+
+        </div>
+        <div class="col-2">
+          <button type="button" class="btn btn-success"><img src="/../Iconos/palomita.png" width="30px" height="25px"></button>
+        </div>
+      </div>
+      <br>
     </div>
-
-
-
 
 
 
@@ -108,7 +120,7 @@
           <div class="modal-body" id="Cuerpo">
             <form id="my-form">
               <div class="container">
-              
+
                 <div class="row">
                   <div class="col-3 col-sm-3">
                     Nombres
@@ -123,6 +135,7 @@
                     Fecha de nacimiento
                   </div>
                 </div>
+
                 <div class="row">
                   <div class="col-3 col-sm-3">
                     <input type="text" class="form-control" id="FAnv_Nombres" for="validationCustomUsername" required>
@@ -189,7 +202,7 @@
                     <input type="text" class="form-control" id="FAnv_Calle">
                   </div>
                   <div class="col-2 col-sm-2">
-                    <input type="text" class="form-control" id="FAnv_FiscalCd" disabled>
+                    <input type="text" class="form-control" id="FAnv_FiscalCd" Disabled>
                   </div>
                 </div>
 
@@ -241,10 +254,9 @@
        const FAnv_Tel = document.getElementById('FAnv_Tel');
        const FAnv_Cel = document.getElementById('FAnv_Cel');
        const FAnv_RFC = document.getElementById('FAnv_RFC');
-       const FAnv_IFE = document.getElementById('FAnv_IFE');
+       const FAnv_IFe = document.getElementById('FAnv_IFE');
        const limpiar = document.getElementById('limpiar');
        const Cliente = document.getElementById('Cliente');
-       const Tool = document.getElementById('tooltip');
        const boton = document.getElementById('boton');
        var Colonos;
        var Cli;
@@ -365,7 +377,7 @@
          }
          
        }
-
+       
        function Tecla(e){
          if(e.code === "Enter"){
            Traer();
@@ -380,7 +392,7 @@
            } else if(code >= 48 && code <= 57){
              return true;
            } else{
-             return false;
+            return false;
            }
        }
 
@@ -415,18 +427,18 @@
              else{
                Colonos = respuesta[0].FAnv_FiscalColonia;
                FAnv_Nombres.value = respuesta[0].FAnv_Nombres;
-		           FAnv_APaterno.value = respuesta[0].FAnv_APaterno;
-		           FAnv_AMaterno.value = respuesta[0].FAnv_AMaterno;
-		           FAnv_FiscalCd.value = respuesta[0].FAnv_FiscalCd;
+               FAnv_APaterno.value = respuesta[0].FAnv_APaterno;
+               FAnv_AMaterno.value = respuesta[0].FAnv_AMaterno;
+               FAnv_FiscalCd.value = respuesta[0].FAnv_FiscalCd;
                FAnv_ApartadoPost.value = respuesta[0].FAnv_ApartadoPost;
                Colonias();
-		           FAnv_Calle.value = respuesta[0].FAnv_Calle;
-		           FAnv_Tel.value = respuesta[0].FAnv_Tel;
-		           FAnv_Cel.value = respuesta[0].FAnv_Cel;
-		           FAnv_CURP.value = respuesta[0].FAnv_CURP;
-		           FAnv_RFC.value = respuesta[0].FAnv_RFC;
-		           FAnv_IFE.value = respuesta[0].FAnv_IFE;
-		           FAdt_FechaNac.value = respuesta[0].FAdt_FechaNac;
+               FAnv_Calle.value = respuesta[0].FAnv_Calle;
+               FAnv_Tel.value = respuesta[0].FAnv_Tel;
+               FAnv_Cel.value = respuesta[0].FAnv_Cel;
+               FAnv_CURP.value = respuesta[0].FAnv_CURP;
+               FAnv_RFC.value = respuesta[0].FAnv_RFC;
+               FAnv_IFE.value = respuesta[0].FAnv_IFE;
+               FAdt_FechaNac.value = respuesta[0].FAdt_FechaNac;
                Cli = respuesta[0].FAnv_Nombres + ' ' + respuesta[0].FAnv_APaterno + ' ' + respuesta[0].FAnv_AMaterno;
              }
            },
@@ -474,8 +486,9 @@
 
                Toast.fire({
                  icon: 'error',
-                 title: 'No es posible completar la operación'
-               })
+                 title: 'No es posible completar la operación.'
+               });
+
              }
            });
          }
