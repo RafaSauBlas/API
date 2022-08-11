@@ -8,7 +8,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
     <link href="../css/Estail.css" rel="stylesheet">
   </head>
-  <body>
+  <body onload="Limpiar()">
     <br>
     <div class="container" id="Contenedor">
       <br>
@@ -115,7 +115,7 @@
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" id="exampleModalLabel">Clientes</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <!--<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>-->
           </div>
           <div class="modal-body" id="Cuerpo">
             <form id="my-form">
@@ -138,16 +138,16 @@
 
                 <div class="row">
                   <div class="col-3 col-sm-3">
-                    <input type="text" class="form-control" id="FAnv_Nombres" for="validationCustomUsername" required>
+                    <input type="text" class="form-control" id="FAnv_Nombres" for="validationCustomUsername" onKeyUp="this.value = this.value.toUpperCase();" Required>
                   </div>
                   <div class="col-3 col-sm-3">
-                    <input type="text" class="form-control" id="FAnv_APaterno" for="validationCustomUsername" required>
+                    <input type="text" class="form-control" id="FAnv_APaterno" for="validationCustomUsername" onKeyUp="this.value = this.value.toUpperCase();" Required>
                   </div>
                   <div class="col-3 col-sm-3">
-                    <input type="text" class="form-control" id="FAnv_AMaterno" for="validationCustomUsername" required>
+                    <input type="text" class="form-control" id="FAnv_AMaterno" for="validationCustomUsername" onKeyUp="this.value = this.value.toUpperCase();" Required>
                   </div>
                   <div class="col-3 col-sm-3">
-                    <input type="date" class="form-control" id="FAdt_FechaNac" for="validationCustomUsername" required>
+                    <input type="date" class="form-control" id="FAdt_FechaNac" for="validationCustomUsername" Required>
                   </div>
                 </div>
 
@@ -165,13 +165,13 @@
 
                 <div class="row">
                   <div class="col-4 col-sm-4">
-                    <input type="text" class="form-control" id="FAnv_CURP">
+                    <input type="text" class="form-control" id="FAnv_CURP" onKeyUp="this.value = this.value.toUpperCase();">
                   </div>
                   <div class="col-4 col-sm-4">
-                    <input type="text" class="form-control" id="FAnv_RFC">
+                    <input type="text" class="form-control" id="FAnv_RFC" onKeyUp="this.value = this.value.toUpperCase();">
                   </div>
                   <div class="col-4 col-sm-4">
-                    <input type="text" class="form-control" id="FAnv_IFE">
+                    <input type="text" class="form-control" id="FAnv_IFE" onKeyUp="this.value = this.value.toUpperCase();">
                   </div>
                 </div>
 
@@ -195,11 +195,11 @@
                     <input type="text" class="form-control" id="FAnv_ApartadoPost" onkeypress="return Restric(event);">
                   </div>
                   <div class="col-3 col-sm-3">
-                    <select class="form-select" id="FAnv_FiscalColonia">
+                    <select class="form-select" id="FAnv_FiscalColonia" onfocus="Colonias()">
                     </select>
                   </div>
                   <div class="col-4 col-sm-4">
-                    <input type="text" class="form-control" id="FAnv_Calle">
+                    <input type="text" class="form-control" id="FAnv_Calle" onKeyUp="this.value = this.value.toUpperCase();">
                   </div>
                   <div class="col-2 col-sm-2">
                     <input type="text" class="form-control" id="FAnv_FiscalCd" Disabled>
@@ -234,7 +234,7 @@
             </form>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-danger" data-bs-dismiss="modal" onkeypress="Cerrar();"><img src="/../Iconos/tache.png" width="25px" height="25px"></button>
+            <button type="button" class="btn btn-danger" data-bs-dismiss="modal"><img src="/../Iconos/tache.png" width="25px" height="25px"></button>
             <button type="button" class="btn btn-success" id="boton" data-placement="bottom"><img src="/../Iconos/palomita.png" width="25px" height="25px"></button>
           </div>
         </div>
@@ -254,10 +254,11 @@
        const FAnv_Tel = document.getElementById('FAnv_Tel');
        const FAnv_Cel = document.getElementById('FAnv_Cel');
        const FAnv_RFC = document.getElementById('FAnv_RFC');
-       const FAnv_IFe = document.getElementById('FAnv_IFE');
+       const FAnv_IFE = document.getElementById('FAnv_IFE');
        const limpiar = document.getElementById('limpiar');
        const Cliente = document.getElementById('Cliente');
        const boton = document.getElementById('boton');
+       const Modal = document.getElementById('exampleModal');
        var Colonos;
        var Cli;
 
@@ -265,6 +266,15 @@
        FAnv_AMaterno.addEventListener('keyup', Tecla);
        limpiar.addEventListener('click', Limpiar);
        boton.addEventListener('click', Aceptar);
+
+       function Mayusculas(obj, id){
+         obj = obj.toUpperCase();
+         document.getElementById(id).value = obj;
+       }
+
+       Modal.addEventListener('shown.bs.modal', function (){
+        FAnv_Nombres.select();
+       });
 
        function Limpiar(e){
          FAnv_Nombres.value = "";
@@ -301,6 +311,7 @@
        function Aceptar(e){
          var elementos = document.getElementById("my-form").elements;
          var valor = 0;
+         var Clien;
          for(var i = 0, element; element = elementos[i++];){
            if(element.id != "FAnv_FiscalCd" && element.type != "button" && element.value === ""){
              element.style.borderColor = "red";
@@ -332,7 +343,7 @@
          if(valor == 0){
            $.ajax({
              url: 'http://127.0.0.1:8000/api/clientes/verificar',
-             type: 'GET',
+             type: 'POST',
              data:{FAnv_Nombres: FAnv_Nombres.value, FAnv_APaterno: FAnv_APaterno.value, FAnv_AMaterno: FAnv_AMaterno.value, FAnv_FiscalCd: FAnv_FiscalCd.value,
 	                 FAnv_FiscalColonia: FAnv_FiscalColonia.value, FAnv_ApartadoPost: FAnv_ApartadoPost.value, FAnv_Calle: FAnv_Calle.value, FAnv_Tel: FAnv_Tel.value,
 	                 FAnv_Cel: FAnv_Cel.value, FAnv_CURP: FAnv_CURP.value, FAnv_RFC: FAnv_RFC.value, FAnv_IFE: FAnv_IFE.value, FAdt_FechaNac: FAdt_FechaNac.value},
@@ -354,6 +365,8 @@
                    title: respuesta
                  });
                }
+               Clien = FAnv_Nombres.value + " " + FAnv_APaterno.value + " " + FAnv_AMaterno.value;
+               Cliente.value = Clien;
                $("#exampleModal").modal('hide');
              },
              error: function(){
@@ -373,7 +386,6 @@
                });
              }
            });
-           Cliente.value = Cli;
          }
          
        }
@@ -428,7 +440,7 @@
                Colonos = respuesta[0].FAnv_FiscalColonia;
                FAnv_Nombres.value = respuesta[0].FAnv_Nombres;
                FAnv_APaterno.value = respuesta[0].FAnv_APaterno;
-               FAnv_AMaterno.value = respuesta[0].FAnv_AMaterno;
+               FAnv_AMAterno.value = respuesta[0].FAnv_AMAterno;
                FAnv_FiscalCd.value = respuesta[0].FAnv_FiscalCd;
                FAnv_ApartadoPost.value = respuesta[0].FAnv_ApartadoPost;
                Colonias();
@@ -464,11 +476,10 @@
        }
        
        function Ciudad(e){
-         if(FAnv_ApartadoPost.value.length == 5){
-           $.ajax({
-             url: 'http://127.0.0.1:8000/api/clientes/Municipio',
-             type: 'GET',
-             data:{CP: FAnv_ApartadoPost.value},
+         $.ajax({
+           url: 'http://127.0.0.1:8000/api/clientes/Municipio',
+           type: 'GET',
+           data:{CP: FAnv_ApartadoPost.value},
              success: function(respuesta){
                FAnv_FiscalCd.value = respuesta;
              },
@@ -488,60 +499,56 @@
                  icon: 'error',
                  title: 'No es posible completar la operación.'
                });
-
              }
-           });
-         }
-         else{
-           while(FAnv_FiscalColonia.options.length > 0){
-             FAnv_FiscalColonia.remove(0);
-           }
-         }
+         });
        }
 
        function Colonias(e){
          if(FAnv_ApartadoPost.value.length == 5){
-           $.ajax({
-             url: 'http://127.0.0.1:8000/api/clientes/colonias',
-             type: 'GET',
-             data:{CP: FAnv_ApartadoPost.value},
-             success: function(respuesta){
-               Ciudad();
-               for(i = 0; i < respuesta.length; i++){
+           if(FAnv_FiscalColonia.options.length == 0){
+             $.ajax({
+               url: 'http://127.0.0.1:8000/api/clientes/colonias',
+               type: 'GET',
+               data:{CP: FAnv_ApartadoPost.value},
+               success: function(respuesta){
+                 Ciudad();
+                 for(i = 0; i < respuesta.length; i++){
                  var option = document.createElement("option");
                      option.text = respuesta[i];
                      FAnv_FiscalColonia.add(option);
-               }
-               if(typeof Colonos === 'undefined'){
-                 FAnv_FiscalColonia.selectedIndex = "0";
-               }
-               else{
-                 FAnv_FiscalColonia.value = Colonos;
-               }
-             },
-             error: function(){
-               const Toast = Swal.mixin({
-                 toast: true,
-                 position: 'top-end',
-                 showConfirmButton: false,
-                 timer: 2000,
-                 didOpen: (toast) => {
-                   toast.addEventListener('mouseenter', Swal.stopTimer)
-                   toast.addEventListener('mouseleave', Swal.resumeTimer)
                  }
-               });
+                 if(typeof Colonos === 'undefined'){
+                   FAnv_FiscalColonia.selectedIndex = "0";
+                 }
+                 else{
+                   FAnv_FiscalColonia.value = Colonos;
+                 }
+               },
+               error: function(){
+                 const Toast = Swal.mixin({
+                   toast: true,
+                   position: 'top-end',
+                   showConfirmButton: false,
+                   timer: 2000,
+                   didOpen: (toast) => {
+                     toast.addEventListener('mouseenter', Swal.stopTimer)
+                     toast.addEventListener('mouseleave', Swal.resumeTimer)
+                   }
+                 });
 
-               Toast.fire({
-                 icon: 'error',
-                 title: 'No es posible completar la operación.'
-               });
-             }
-           });
+                 Toast.fire({
+                   icon: 'error',
+                   title: 'No es posible completar la operación.'
+                 });
+               }
+             });
+           }
          }
          else{
            while(FAnv_FiscalColonia.options.length > 0){
              FAnv_FiscalColonia.remove(0);
            }
+           FAnv_FiscalCd.value = "";
          }
        }
     </script>

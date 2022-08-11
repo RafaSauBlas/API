@@ -9,3 +9,31 @@ body{
 #button-addon2{
     background-color: white;
 }
+
+#FAnv_Nombres{
+    text-transform:uppercase;
+}
+
+#FAnv_APaterno{
+    text-transform: uppercase;
+}
+
+#FAnv_AMaterno{
+    text-transform: uppercase;
+}
+
+#FAnv_Calle{
+    text-transform: uppercase;
+}
+
+#FAnv_CURP{
+    text-transform: uppercase;
+}
+
+#FAnv_RFC{
+    text-transform: uppercase;
+}
+
+#FAnv_IFE{
+    text-transform: uppercase;
+}

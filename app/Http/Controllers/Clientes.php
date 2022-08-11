@@ -70,11 +70,11 @@ class Clientes extends Controller
 
       $cliente = $cli[0];
       
-      if($cliente->FAnv_Nombres != strtoupper($request->FAnv_Nombres) || $cliente->FAnv_APaterno != strtoupper($request->FAnv_APaterno) ||
-         $cliente->FAnv_AMaterno != strtoupper($request->FAnv_AMaterno) || $cliente->FAnv_FiscalCd != $request->FAnv_FiscalCd ||
-         $cliente->FAnv_ApartadoPost != $request->FAnv_ApartadoPost || $cliente->FAnv_Calle != strtoupper($request->FAnv_Calle) ||
-         $cliente->FAnv_Tel != $request->FAnv_Tel || $cliente->FAnv_Cel != $request->FAnv_Cel || $cliente->FAnv_CURP != strtoupper($request->FAnv_CURP) ||
-         $cliente->FAnv_RFC != strtoupper($request->FAnv_RFC) || $cliente->FAnv_IFE != strtoupper($request->FAnv_IFE) ||
+      if($cliente->FAnv_Nombres != $request->FAnv_Nombres || $cliente->FAnv_APaterno != $request->FAnv_APaterno ||
+         $cliente->FAnv_AMaterno != $request->FAnv_AMaterno || $cliente->FAnv_FiscalCd != $request->FAnv_FiscalCd ||
+         $cliente->FAnv_FiscalColonia != $request->FAnv_FiscalColonia || $cliente->FAnv_ApartadoPost != $request->FAnv_ApartadoPost ||
+         $cliente->FAnv_Calle != $request->FAnv_Calle || $cliente->FAnv_Tel != $request->FAnv_Tel || $cliente->FAnv_Cel != $request->FAnv_Cel ||
+         $cliente->FAnv_CURP != $request->FAnv_CURP || $cliente->FAnv_RFC != $request->FAnv_RFC || $cliente->FAnv_IFE != $request->FAnv_IFE ||
          $cliente->FAdt_FechaNac != $request->FAdt_FechaNac){
            return self::Actualizar($request);
          }
@@ -115,15 +115,15 @@ class Clientes extends Controller
       DB::table('FATB_Clientes')->insert([
           'FAin_NuCia' => 1,
           'FAdt_FechaAlta' => Carbon::now()->format('Y-m-d').'T00:00:00.000',
-          'FAnv_Razon' => strtoupper($request->FAnv_Nombres).' '.strtoupper($request->FAnv_APaterno).' '.strtoupper($request->FAnv_AMaterno),
+          'FAnv_Razon' => $request->FAnv_Nombres.' '.$request->FAnv_APaterno.' '.$request->FAnv_AMaterno,
           'FAnv_Abreviado' => '',
           'FAnv_Cd' => self::Municipio($request->FAnv_ApartadoPost),
           'FAnv_FiscalCd' => self::Municipio($request->FAnv_ApartadoPost),
-          'FAnv_FiscalColonia' => strtoupper($request->FAnv_FiscalColonia),
+          'FAnv_FiscalColonia' => $request->FAnv_FiscalColonia,
           'FAin_FiscalCP' => $request->FAnv_ApartadoPost,
           'FAnv_ApartadoPost' => $request->FAnv_ApartadoPost,
-          'FAnv_DirFiscal' => strtoupper($request->FAnv_Calle),
-          'FAnv_Calle' => strtoupper($request->FAnv_Calle),
+          'FAnv_DirFiscal' => $request->FAnv_Calle,
+          'FAnv_Calle' => $request->FAnv_Calle,
           'FAnv_ProdFinan' => '',
           'FAbt_UTCueProp' => 0,
           'FAnv_PorCuenta' => '',
@@ -136,8 +136,8 @@ class Clientes extends Controller
           'FAnv_Cel' => $request->FAnv_Cel,
           'FAnv_Fax' => '',
           'FAnv_TipoFM' => '',
-          'FAnv_RFC' => strtoupper($request->FAnv_RFC),
-          'FAnv_CURP' => strtoupper($request->FAnv_CURP),
+          'FAnv_RFC' => $request->FAnv_RFC,
+          'FAnv_CURP' => $request->FAnv_CURP,
           'FAin_Grupo' => 0,
           'FAnv_Email' => '',
           'FAnv_Contacto' => '',
@@ -174,14 +174,14 @@ class Clientes extends Controller
           'FAnv_NoContrato' => '',
           'FAnv_Municipio' => self::Municipio($request->FAnv_ApartadoPost),
           'FAnv_Estado' => self::Estado($request->FAnv_ApartadoPost),
-          'FAnv_APaterno' => strtoupper($request->FAnv_APaterno),
-          'FAnv_AMaterno' => strtoupper($request->FAnv_AMaterno),
-          'FAnv_Nombres' => strtoupper($request->FAnv_Nombres),
+          'FAnv_APaterno' => $request->FAnv_APaterno,
+          'FAnv_AMaterno' => $request->FAnv_AMaterno,
+          'FAnv_Nombres' => $request->FAnv_Nombres,
           'FAnv_CveUni' => '',
           'FAim_Foto' => Null,
           'FAim_huella' => Null,
           'FAim_huella2' =>  Null,
-          'FAnv_IFE' => strtoupper($request->FAnv_IFE),
+          'FAnv_IFE' => $request->FAnv_IFE,
           'FAbt_ListaNegra' => 0,
           'FAdt_FechaNac' => $request->FAdt_FechaNac,
           'FAnv_Nacionalidad' => '',
@@ -313,37 +313,37 @@ class Clientes extends Controller
           'FAbt_CanjeLinea' => 0,
           'FAdc_IdZT'=> 0,
         ]);
-      return "El cliente se ha registrado correctamente.";
+      return "Cliente registrado correctamente.";
     }
 
     public function Actualizar(Request $request){
       $update = DB::table('FATB_Clientes')
-                  ->where('FAnv_Razon', strtoupper($request->FAnv_Nombres).' '.strtoupper($request->FAnv_APaterno).' '.strtoupper($request->FAnv_AMaterno))
-                  ->where('FAnv_CURP', strtoupper($request->FAnv_CURP))
+                  ->where('FAnv_Razon', $request->FAnv_Nombres.' '.$request->FAnv_APaterno.' '.$request->FAnv_AMaterno)
+                  ->where('FAnv_CURP', $request->FAnv_CURP)
                   ->update([
-                      'FAnv_Razon' => strtoupper($request->FAnv_Nombres).' '.strtoupper($request->FAnv_APaterno).' '.strtoupper($request->FAnv_AMaterno),
+                      'FAnv_Razon' => $request->FAnv_Nombres.' '.$request->FAnv_APaterno.' '.$request->FAnv_AMaterno,
                       'FAnv_Cd' => self::Municipio($request->FAnv_ApartadoPost),
                       'FAnv_FiscalCd' => self::Municipio($request->FAnv_ApartadoPost),
-                      'FAnv_FiscalColonia' => strtoupper($request->FAnv_FiscalColonia),
+                      'FAnv_FiscalColonia' => $request->FAnv_FiscalColonia,
                       'FAin_FiscalCP' => $request->FAnv_ApartadoPost,
                       'FAnv_ApartadoPost' => $request->FAnv_ApartadoPost,
-                      'FAnv_DirFiscal' => strtoupper($request->Fanv_Calle),
-                      'FAnv_Calle' => strtoupper($request->FAnv_Calle),
+                      'FAnv_DirFiscal' => $request->FAnv_Calle,
+                      'FAnv_Calle' => $request->FAnv_Calle,
                       'FAnv_Tel' => $request->FAnv_Tel,
                       'FAnv_Cel' => $request->FAnv_Cel,
-                      'FAnv_RFC' => strtoupper($request->FAnv_RFC),
-                      'FAnv_CURP' => strtoupper($request->FAnv_CURP),
+                      'FAnv_RFC' => $request->FAnv_RFC,
+                      'FAnv_CURP' => $request->FAnv_CURP,
                       'FAdt_Fecha' => Carbon::now()->format('Y-m-d').'T00:00:00.000',
                       'FAnv_Municipio' => self::Municipio($request->FAnv_ApartadoPost),
                       'FAnv_Estado' => self::Estado($request->FAnv_ApartadoPost),
-                      'FAnv_APaterno' => strtoupper($request->FAnv_APaterno),
-                      'FAnv_AMaterno' => strtoupper($request->FAnv_AMaterno),
-                      'FAnv_Nombres' => strtoupper($request->FAnv_Nombres),
-                      'FAnv_IFE' => strtoupper($request->FAnv_IFE),
+                      'FAnv_APaterno' => $request->FAnv_APaterno,
+                      'FAnv_AMaterno' => $request->FAnv_AMaterno,
+                      'FAnv_Nombres' => $request->FAnv_Nombres,
+                      'FAnv_IFE' => $request->FAnv_IFE,
                       'FAdt_FechaNac' => $request->FAdt_FechaNac,
                       'FAdt_Fecnac' => $request->FAdt_FechaNac
                   ]);
-      return "El cliente se ha actualizado correctamente.";
+      return "Cliente actualizado correctamente.";
     }
 
 }

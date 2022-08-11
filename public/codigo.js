@@ -264,6 +264,10 @@
        }
 
        function Colonias(e){
+         while(FAnv_FiscalColonia.options.length > 0){
+           FAnv_FiscalColonia.remove(0);
+         }
+
          if(FAnv_ApartadoPost.value.length == 5){
            $.ajax({
              url: 'http://127.0.0.1:8000/api/clientes/colonias',
@@ -301,10 +305,5 @@
                });
              }
            });
-         }
-         else{
-           while(FAnv_FiscalColonia.options.length > 0){
-             FAnv_FiscalColonia.remove(0);
-           }
          }
        }
