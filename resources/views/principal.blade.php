@@ -440,7 +440,7 @@
                Colonos = respuesta[0].FAnv_FiscalColonia;
                FAnv_Nombres.value = respuesta[0].FAnv_Nombres;
                FAnv_APaterno.value = respuesta[0].FAnv_APaterno;
-               FAnv_AMAterno.value = respuesta[0].FAnv_AMAterno;
+               FAnv_AMaterno.value = respuesta[0].FAnv_AMaterno;
                FAnv_FiscalCd.value = respuesta[0].FAnv_FiscalCd;
                FAnv_ApartadoPost.value = respuesta[0].FAnv_ApartadoPost;
                Colonias();
