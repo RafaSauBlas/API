@@ -234,8 +234,8 @@
             </form>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-danger" data-bs-dismiss="modal"><img src="/../Iconos/tache.png" width="25px" height="25px"></button>
-            <button type="button" class="btn btn-success" id="boton" data-placement="bottom"><img src="/../Iconos/palomita.png" width="25px" height="25px"></button>
+            <button type="button" class="btn btn-danger" data-bs-dismiss="modal"> <img src="/../Iconos/tache.png" width="25px" height="25px"> </button>
+            <button type="button" class="btn btn-success" id="boton" data-placement="bottom"> <img src="/../Iconos/palomita.png" width="25px" height="25px"> </button>
           </div>
         </div>
       </div>
