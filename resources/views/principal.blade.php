@@ -29,10 +29,10 @@
           <input type="text" class="form-control" value="250513" Disabled>
         </div>
         <div class="col-4">
-          <input type="text" class="form-control" value="RAFAEL SAUCEDO BLAS" Disabled>
+          <input type="text" class="form-control" value="VICTOR ESCOBEDO MORALES" Disabled>
         </div>
         <div class="col-4">
-          <input type="text" class="form-control" value="32122513" Disabled>
+          <input type="text" class="form-control" value="351233" Disabled>
         </div>
       </div>
 
@@ -83,7 +83,7 @@
           <input type="text" class="form-control" value="$1,000" Disabled>
         </div>
         <div class="col-3">
-          <input type="text" class="form-control" value="10 %" Disabled>
+          <input type="text" class="form-control" value="10%" Disabled>
         </div>
         <div class="col-3">
           <input type="text" class="form-control" value="$900" Disabled>
@@ -273,49 +273,49 @@
        }
 
        Modal.addEventListener('shown.bs.modal', function (){
-        FAnv_Nombres.select();
+         FAnv_Nombres.select();
        });
 
        function Limpiar(e){
-         FAnv_Nombres.value = "";
-         FAnv_Nombres.style.borderColor = "#d6d6d6";
-         FAnv_APaterno.value = "";
-         FAnv_APaterno.style.borderColor = "#d6d6d6";
-         FAnv_AMaterno.value = "";
-         FAnv_AMaterno.style.borderColor = "#d6d6d6";
-         FAnv_FiscalCd.value = "";
-         FAnv_FiscalCd.style.borderColor = "#d6d6d6";
-         FAnv_ApartadoPost.value = "";
-         FAnv_ApartadoPost.style.borderColor = "#d6d6d6";
-         FAnv_Calle.value = "";
-         FAnv_Calle.style.borderColor = "#d6d6d6";
-         FAnv_Tel.value = "";
-         FAnv_Tel.style.borderColor = "#d6d6d6";
-         FAnv_Cel.value = "";
-         FAnv_Cel.style.borderColor = "#d6d6d6";
-         FAnv_CURP.value = "";
-         FAnv_CURP.style.borderColor = "#d6d6d6";
-         FAnv_RFC.value = "";
-         FAnv_RFC.style.borderColor = "#d6d6d6";
-         FAnv_IFE.value = "";
-         FAnv_IFE.style.borderColor = "#d6d6d6";
-         FAdt_FechaNac.value = "";
-         FAdt_FechaNac.style.borderColor = "#d6d6d6";
-         FAnv_FiscalColonia.style.borderColor = "#d6d6d6";
+         FAnv_Nombres.value = '';
+         FAnv_Nombres.style.borderColor = '#d6d6d6';
+         FAnv_APaterno.value = '';
+         FAnv_APaterno.style.borderColor = '#d6d6d6';
+         FAnv_AMaterno.value = '';
+         FAnv_AMaterno.style.borderColor = '#d6d6d6';
+         FAnv_FiscalCd.value = '';
+         FAnv_FiscalCd.style.borderColor = '#d6d6d6';
+         FAnv_ApartadoPost.value = '';
+         FAnv_ApartadoPost.style.borderColor = '#d6d6d6';
+         FAnv_Calle.value = '';
+         FAnv_Calle.style.borderColor = '#d6d6d6';
+         FAnv_Tel.value = '';
+         FAnv_Tel.style.borderColor = '#d6d6d6';
+         FAnv_Cel.value = '';
+         FAnv_Cel.style.borderColor = '#d6d6d6';
+         FAnv_CURP.value = '';
+         FAnv_CURP.style.borderColor = '#d6d6d6';
+         FAnv_RFC.value = '';
+         FAnv_RFC.style.borderColor = '#d6d6d6';
+         FAnv_IFE.value = '';
+         FAnv_IFE.style.borderColor = '#d6d6d6';
+         FAdt_FechaNac.value = '';
+         FAdt_FechaNac.style.borderColor = '#d6d6d6';
+         FAnv_FiscalColonia.style.borderColor = '#d6d6d6';
          while(FAnv_FiscalColonia.options.length > 0){
            FAnv_FiscalColonia.remove(0);
          }
-         Cliente.value = "";
+         Cliente.value = '';
        }
 
        function Aceptar(e){
-         var elementos = document.getElementById("my-form").elements;
+         var elementos = document.getElementById('my-form').elements;
          var valor = 0;
          var Clien;
          for(var i = 0, element; element = elementos[i++];){
-           if(element.id != "FAnv_FiscalCd" && element.type != "button" && element.value === ""){
-             element.style.borderColor = "red";
-             $("#"+element.id).fadeTo(200, .1).fadeTo(200, 1)
+           if(element.id != 'FAnv_FiscalCd' && element.type != 'button' && element.value === ''){
+             element.style.borderColor = 'red';
+             $('#'+element.id).fadeTo(200, .1).fadeTo(200, 1)
                               .fadeTo(200, .1).fadeTo(200, 1);
 
              const Toast = Swal.mixin({
@@ -336,7 +336,7 @@
              valor ++;
            }
            else{
-             element.style.borderColor = "#d6d6d6";
+             element.style.borderColor = '#d6d6d6';
            }
          }
          
@@ -364,10 +364,11 @@
                    icon: 'success',
                    title: respuesta
                  });
+
                }
-               Clien = FAnv_Nombres.value + " " + FAnv_APaterno.value + " " + FAnv_AMaterno.value;
+               Clien = FAnv_Nombres.value + ' ' + FAnv_APaterno.value + ' ' + FAnv_AMaterno.value;
                Cliente.value = Clien;
-               $("#exampleModal").modal('hide');
+               $('#exampleModal').modal('hide');
              },
              error: function(){
                const Toast = Swal.mixin({
@@ -391,7 +392,7 @@
        }
        
        function Tecla(e){
-         if(e.code === "Enter"){
+         if(e.code === 'Enter'){
            Traer();
          }
        }
@@ -404,15 +405,15 @@
            } else if(code >= 48 && code <= 57){
              return true;
            } else{
-            return false;
+             return false;
            }
        }
 
        function Traer(e){
         //Este metodo es para limpiar el select del CP
         while(FAnv_FiscalColonia.options.length > 0){
-           FAnv_FiscalColonia.remove(0);
-         }
+          FAnv_FiscalColonia.remove(0);
+        }
 
          $.ajax({
            url: 'http://127.0.0.1:8000/api/clientes/traer',
@@ -513,12 +514,12 @@
                success: function(respuesta){
                  Ciudad();
                  for(i = 0; i < respuesta.length; i++){
-                 var option = document.createElement("option");
+                 var option = document.createElement('option');
                      option.text = respuesta[i];
                      FAnv_FiscalColonia.add(option);
                  }
                  if(typeof Colonos === 'undefined'){
-                   FAnv_FiscalColonia.selectedIndex = "0";
+                   FAnv_FiscalColonia.selectedIndex = '0';
                  }
                  else{
                    FAnv_FiscalColonia.value = Colonos;
@@ -548,7 +549,7 @@
            while(FAnv_FiscalColonia.options.length > 0){
              FAnv_FiscalColonia.remove(0);
            }
-           FAnv_FiscalCd.value = "";
+           FAnv_FiscalCd.value = '';
          }
        }
     </script>
