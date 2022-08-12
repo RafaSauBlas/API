@@ -67,9 +67,9 @@ class Clientes extends Controller
                ->select('FAnv_Nombres', 'FAnv_APaterno', 'FAnv_AMaterno', 'FAnv_FiscalCd', 'FAnv_FiscalColonia', 'FAnv_ApartadoPost', 'FAnv_Calle', 'FAnv_Tel',
                         'FAnv_Cel', 'FAnv_CURP', 'FAnv_RFC', 'FAnv_IFE', 'FAdt_FechaNac')
                ->get();
-
-      $cliente = $cli[0];
       
+      $cliente = $cli[0];
+
       if($cliente->FAnv_Nombres != $request->FAnv_Nombres || $cliente->FAnv_APaterno != $request->FAnv_APaterno ||
          $cliente->FAnv_AMaterno != $request->FAnv_AMaterno || $cliente->FAnv_FiscalCd != $request->FAnv_FiscalCd ||
          $cliente->FAnv_FiscalColonia != $request->FAnv_FiscalColonia || $cliente->FAnv_ApartadoPost != $request->FAnv_ApartadoPost ||
@@ -77,11 +77,11 @@ class Clientes extends Controller
          $cliente->FAnv_CURP != $request->FAnv_CURP || $cliente->FAnv_RFC != $request->FAnv_RFC || $cliente->FAnv_IFE != $request->FAnv_IFE ||
          $cliente->FAdt_FechaNac != $request->FAdt_FechaNac){
            return self::Actualizar($request);
-         }
-      else{
-        
       }
-    }
+      else{
+
+      }
+    }    
 
     public function Fec(Request $request){
       return self::Municipio($request->FAnv_ApartadoPost);
