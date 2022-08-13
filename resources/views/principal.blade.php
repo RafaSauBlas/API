@@ -259,6 +259,7 @@
        const Cliente = document.getElementById('Cliente');
        const boton = document.getElementById('boton');
        const Modal = document.getElementById('exampleModal');
+       const URLClientes = 'http://127.0.0.1:8000/api/clientes/'
        var Colonos;
        var Cli;
 

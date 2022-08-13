@@ -74,8 +74,8 @@
                showConfirmButton: false,
                timer: 2000,
                didOpen: (toast) => {
-                 toast.addEventListener('mouseenter', Swal.stopTimer)
-                 toast.addEventListener('mouseleave', Swal.resumeTimer)
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
                }
              });
 
@@ -95,8 +95,8 @@
              url: 'http://127.0.0.1:8000/api/clientes/verificar',
              type: 'GET',
              data:{FAnv_Nombres: FAnv_Nombres.value, FAnv_APaterno: FAnv_APaterno.value, FAnv_AMaterno: FAnv_AMaterno.value, FAnv_FiscalCd: FAnv_FiscalCd.value,
-	                 FAnv_FiscalColonia: FAnv_FiscalColonia.value, FAnv_ApartadoPost: FAnv_ApartadoPost.value, FAnv_Calle: FAnv_Calle.value, FAnv_Tel: FAnv_Tel.value,
-	                 FAnv_Cel: FAnv_Cel.value, FAnv_CURP: FAnv_CURP.value, FAnv_RFC: FAnv_RFC.value, FAnv_IFE: FAnv_IFE.value, FAdt_FechaNac: FAdt_FechaNac.value},
+                   FAnv_FiscalColonia: FAnv_FiscalColonia.value, FAnv_ApartadoPost: FAnv_ApartadoPost.value, FAnv_Calle: FAnv_Calle.value, FAnv_Tel: FAnv_Tel.value,
+                   FAnv_Cel: FAnv_Cel.value, FAnv_CURP: FAnv_CURP.value, FAnv_RFC: FAnv_RFC.value, FAnv_IFE: FAnv_IFE.value, FAdt_FechaNac: FAdt_FechaNac.value},
              success: function(respuesta){
                if(respuesta != ""){
                  const Toast = Swal.mixin({
@@ -127,7 +127,7 @@
                  timer: 2000,
                  didOpen: (toast) => {
                    toast.addEventListener('mouseenter', Swal.stopTimer)
-                   toast.addEventListener('mouseleave', Swal.resumeTimer)
+                   toast.addEventListener('mouseleave', swal.resumeTimer)
                  }
                });
 
@@ -151,13 +151,13 @@
        //FUNCTION PARA SOLO ADMITIR NUMEROS EN LOS INPUTS DE LOS TELEFONOS
        function Restric(e){
          var code = (e.which) ? e.which : e.code;
-           if(code == 8){
-             return true;
-           } else if(code >= 48 && code <= 57){
-             return true;
-           } else{
-             return false;
-           }
+          if(code == 8){
+            return true;
+          } else if(code >= 48 && code <= 57){
+            return true;
+          } else{
+            return false;
+          }
        }
 
        function Traer(e){
