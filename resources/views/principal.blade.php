@@ -259,7 +259,7 @@
        const Cliente = document.getElementById('Cliente');
        const boton = document.getElementById('boton');
        const Modal = document.getElementById('exampleModal');
-       const URLClientes = 'http://127.0.0.1:8000/api/clientes/'
+       const URLClientes = 'http://127.0.0.1:8000/api/clientes/';
        var Colonos;
        var Cli;
 
@@ -343,7 +343,7 @@
          
          if(valor == 0){
            $.ajax({
-             url: 'http://127.0.0.1:8000/api/clientes/verificar',
+             url: URLClientes + 'verificar',
              type: 'POST',
              data:{FAnv_Nombres: FAnv_Nombres.value, FAnv_APaterno: FAnv_APaterno.value, FAnv_AMaterno: FAnv_AMaterno.value, FAnv_FiscalCd: FAnv_FiscalCd.value,
 	                 FAnv_FiscalColonia: FAnv_FiscalColonia.value, FAnv_ApartadoPost: FAnv_ApartadoPost.value, FAnv_Calle: FAnv_Calle.value, FAnv_Tel: FAnv_Tel.value,
@@ -391,7 +391,7 @@
          }
          
        }
-       
+
        function Tecla(e){
          if(e.code === 'Enter'){
            Traer();
@@ -408,7 +408,7 @@
            } else{
              return false;
            }
-       }
+       }       
 
        function Traer(e){
         //Este metodo es para limpiar el select del CP
@@ -417,7 +417,7 @@
         }
 
          $.ajax({
-           url: 'http://127.0.0.1:8000/api/clientes/traer',
+           url: URLClientes + 'traer',
            type: 'GET',
            data: {FAnv_Nombres: FAnv_Nombres.value, FAnv_APaterno: FAnv_APaterno.value, FAnv_AMaterno: FAnv_AMaterno.value},
            success: function(respuesta){
@@ -479,7 +479,7 @@
        
        function Ciudad(e){
          $.ajax({
-           url: 'http://127.0.0.1:8000/api/clientes/Municipio',
+           url: URLClientes + 'Municipio',
            type: 'GET',
            data:{CP: FAnv_ApartadoPost.value},
              success: function(respuesta){
@@ -509,7 +509,7 @@
          if(FAnv_ApartadoPost.value.length == 5){
            if(FAnv_FiscalColonia.options.length == 0){
              $.ajax({
-               url: 'http://127.0.0.1:8000/api/clientes/colonias',
+               url: URLClientes + 'colonias',
                type: 'GET',
                data:{CP: FAnv_ApartadoPost.value},
                success: function(respuesta){
