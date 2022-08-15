@@ -25,7 +25,8 @@ class Clientes extends Controller
     }
 
     public function Validar(Request $request){
-      $cliente = DB::table('FATB_Clientes')->where('FAnv_Razon', $request->FAnv_Nombres.' '.$request->FAnv_APaterno.' '.$request->FAnv_AMaterno)
+      $cliente = DB::table('FATB_Clientes')
+                   ->where('FAnv_Razon', $request->FAnv_Nombres.' '.$request->FAnv_APaterno.' '.$request->FAnv_AMaterno)
                    ->where('FAnv_CURP', $request->FAnv_CURP)
                    ->count();
       if($cliente == 0){
