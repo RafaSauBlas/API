@@ -18,10 +18,14 @@ class Clientes extends Controller
     }
 
     public function SHOW1(Request $request){
-      $cliente = DB::table('FATB_Clientes')->where('FAnv_CURP', '')
-                   ->select('FAnv_Nombres', 'FAnv_APaterno', 'FAnv_AMaterno')
-                   ->get();
-      return $cliente;
+      $coleccion = DB::select('exec usp_TraerFirmas');
+      $arreglo = array();
+      $num = 0;
+      foreach($coleccion as $cli){
+        $arreglo[$num] = $cli->FAim_Firma;
+        $num ++;
+      }
+      return $arreglo;
     }
 
     public function Validar(Request $request){
