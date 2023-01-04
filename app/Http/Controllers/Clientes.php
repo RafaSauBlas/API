@@ -6,6 +6,8 @@ use Carbon\Carbon;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Crypt;
+use Nullix\CryptoJsAes\CryptoJsAes;
 
 class Clientes extends Controller
 {
@@ -25,7 +27,8 @@ class Clientes extends Controller
         $arreglo[$num] = $cli->FAim_Firma;
         $num ++;
       }
-      return $arreglo;
+      $nomo = CryptoJsAes::descrypt('Rafael Saucedo Blas', '250513');
+      return $nomo;
     }
 
     public function Validar(Request $request){

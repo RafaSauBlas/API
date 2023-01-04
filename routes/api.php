@@ -3,6 +3,9 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Clientes;
+use App\Http\Controllers\ValesDigital;
+use App\Http\Controllers\Contratos;
+use App\Http\Controllers\Quincenas;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,13 +24,17 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 
 //========== RUTAS ESPECIFICAS PARA CLIENTES ==========
-ROUTE::GET('/clientes/traer', [Clientes::class, 'SHOW', function(Request $request){}]);
-ROUTE::POST('/clientes/crear', [Clientes::class, 'Insertar', function(Request $request){}]);
-ROUTE::POST('/clientes/verificar', [Clientes::class, 'Validar', function(Request $request){}]);
-ROUTE::PUT('/clientes/modificar', [Clientes::class, 'Actualizar', function(Request $request){}]);
+// ROUTE::GET('/clientes/traer', [Clientes::class, 'SHOW', function(Request $request){}]);
+// ROUTE::POST('/clientes/crear', [Clientes::class, 'Insertar', function(Request $request){}]);
+// ROUTE::POST('/clientes/verificar', [Clientes::class, 'Validar', function(Request $request){}]);
+// ROUTE::PUT('/clientes/modificar', [Clientes::class, 'Actualizar', function(Request $request){}]);
 //========== RUTAS DE DATOS EXTRA PARA CLIENTES ==========
-ROUTE::GET('/clientes/estado', [Clientes::class, 'Estado', function(Request $request){}]);
-ROUTE::GET('/clientes/Municipio', [Clientes::class, 'Munis', function(Request $request){}]);
-ROUTE::GET('/clientes/colonias', [Clientes::class, 'Colonias', function(Request $request){}]);
+// ROUTE::GET('/clientes/estado', [Clientes::class, 'Estado', function(Request $request){}]);
+// ROUTE::GET('/clientes/Municipio', [Clientes::class, 'Munis', function(Request $request){}]);
+// ROUTE::GET('/clientes/colonias', [Clientes::class, 'Colonias', function(Request $request){}]);
 
-ROUTE::GET('/clientes/prueba', [Clientes::class, 'SHOW1', function(Request $request){}]);
+
+//========== RUTAS DE DATOS EXTRA PARA CLIENTES ==========
+ROUTE::GET('/vales/verifvale', [ValesDigital::class, 'VERIFICAR', function(Request $request){}]);
+ROUTE::GET('/contratos/prueba', [Contratos::class, 'PRIMER', function(Request $request){}]);
+ROUTE::GET('/quincenas/deducir', [Quincenas::class, 'SHOW', function(Request $request){}]);
