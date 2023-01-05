@@ -35,6 +35,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 
 //========== RUTAS DE DATOS EXTRA PARA CLIENTES ==========
-ROUTE::GET('/vales/verifvale', [ValesDigital::class, 'VERIFICAR', function(Request $request){}]);
-ROUTE::GET('/contratos/prueba', [Contratos::class, 'PRIMER', function(Request $request){}]);
-ROUTE::GET('/quincenas/deducir', [Quincenas::class, 'SHOW', function(Request $request){}]);
+//API #1 Validar vale
+ROUTE::POST('/vales/verifvale', [ValesDigital::class, 'VERIFICAR', function(Request $request){}]);
+//API #2 Generar parrilla
+ROUTE::GET('/contratos/prueba', [Contratos::class, 'PROP', function(Request $request){}]);
+//API #3 Generar pedido y detallado del pedido
+ROUTE::GET('/quincenas/detalle', [Quincenas::class, 'SHOW', function(Request $request){}]);

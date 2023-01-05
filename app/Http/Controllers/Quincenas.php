@@ -18,6 +18,7 @@ class Quincenas extends Controller
        try{
 
         if($request->has("monto")){
+            
             //Verificamos que el parametro "Vale" no esté vacio
             if($request->filled("monto")){
                 $monto =  round($request->monto);
