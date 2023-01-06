@@ -242,11 +242,11 @@ class Contratos extends Controller
               "CACon_ImporteSeg2" => 0,
               "CACon_GastosAdmin" => 0,
               "CACon_ValorOperacion" => $monto,
-              "CACon_PagoQuincenal" => ($monto / $plazo),
+              "CACon_PagoQuincenal" => round($monto / $plazo),
               "CACon_PorIntMora" => 0,
               "CACon_NoDoctos" => $plazo,
               "CACon_Vencimientos" => $plazo,
-              "CACon_ImporteDoctos" => ($monto / $plazo),
+              "CACon_ImporteDoctos" => round($monto / $plazo),
               "CACon_Estatus" => "D",
               "CACon_IdAutoriza" => "ADMIN",
               "CACon_FechaAutoriza" => Carbon::now()->format('Y-m-d').'T00:00:00.000',
@@ -386,12 +386,20 @@ class Contratos extends Controller
 
     public function DETALLADO($folio, $vale, $no, $plazo, $monto, $fecha, $seguro, $distrib){
       try{
+        $segundo = 0;
 
         if($no === 1){
-          $primer = $monto + $seguro;
+          $primer = round($monto / $plazo) + $seguro;
+        }
+        elseif($no == $plazo){
+          for($i = 0; $i <= $plazo - 1; $i++){
+            $segundo += round(($monto / $plazo)) - ($monto / $plazo);
+          }
+          $primer = round(($monto / $plazo)) -$segundo;
+          $seguro = 0;
         }
         else{
-          $primer = $monto;
+          $primer = round($monto / $plazo);
           $seguro = 0;
         }
 
@@ -407,8 +415,8 @@ class Contratos extends Controller
             "CADet_docno" => $no."/".$plazo,
             "CADet_descrip" => $vale,
             "CADet_Venci" => date("d-m-Y", strtotime($fecha)),
-            "CADet_Capital" => $monto,
-            "CADet_Amortiza" => $monto,
+            "CADet_Capital" => round(($monto / $plazo)),
+            "CADet_Amortiza" => round(($monto / $plazo)),
             "CADet_MesCurso" => date("d-m-Y", strtotime($fecha)),
             "CADet_DiasTrans" => $plazo,
             "CADet_DiasReales" => 0,
