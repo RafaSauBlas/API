@@ -6,6 +6,7 @@ use App\Http\Controllers\Clientes;
 use App\Http\Controllers\ValesDigital;
 use App\Http\Controllers\Contratos;
 use App\Http\Controllers\Quincenas;
+use App\Http\Controller\Control;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,4 +41,6 @@ ROUTE::POST('/vales/verifvale', [ValesDigital::class, 'VERIFICAR', function(Requ
 //API #2 Generar parrilla
 ROUTE::POST('/quincenas/detalle', [Quincenas::class, 'SHOW', function(Request $request){}]);
 //API #3 Generar pedido y detallado del pedido
-ROUTE::GET('/contratos/prueba', [Contratos::class, 'PRIMER', function(Request $request){}]);
+ROUTE::POST('/contratos/prueba', [Contratos::class, 'PRIMER', function(Request $request){}]);
+//API $4 Validar limites del pedido
+ROUTE::POST('/control/limite', [Control::class, 'TRAER_LIMITE', function(Request $request){}]);

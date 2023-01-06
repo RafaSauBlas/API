@@ -73,7 +73,6 @@ class Contratos extends Controller
           }
 
           //return $vale." - ".$monto." - ".$plazo." - ".$calle." - ".$colonia." - ".$ciudad." - ".$estado;
-          //return self::GENERA_LIMITE("2023/01/03", 6);
 
           return self::PREPARAR($vale, $monto, $plazo, $calle, $colonia, $ciudad, $estado);
 
@@ -104,25 +103,6 @@ class Contratos extends Controller
        catch(Throwable $e){
           report($e);
           return false;
-       }
-    }
-
-    public function GENERA_LIMITE($fe, $plazo){
-       try{
-         $i = 1;
-         $fec = $fe;
-         
-         while($i <= $plazo){
-
-            $fe = $fe." - ".date("Y/m/d", strtotime($fec."+ 15 days"));
-            $i++;
-            $fec = date("Y/m/d", strtotime($fec."+ 15 days"));
-         }
-         return $fe;
-       }
-       catch(Throwable $e){
-         report($e);
-         return false;
        }
     }
 
@@ -227,11 +207,11 @@ class Contratos extends Controller
               "CACon_AMaterno" => $cliente->FAnv_AMaterno,
               "CACon_Nombres" => $cliente->FAnv_Nombres,
               "CACon_RFC" => "",
-              "CACon_DirFiscal" => $calle,
-              "CACon_Colonia" => $colonia,
-              "CACon_Estado" => $estado,
-              "CACon_Municipio" => $ciudad,
-              "CACon_Ciudad" => $ciudad,
+              "CACon_DirFiscal" => strtoupper($calle),
+              "CACon_Colonia" => strtoupper($colonia),
+              "CACon_Estado" => strtoupper($estado),
+              "CACon_Municipio" => strtoupper($ciudad),
+              "CACon_Ciudad" => strtoupper($ciudad),
               "CACon_CP" => 0,
               "CACon_Tel" => "",
               "CACon_Correo" => "",
