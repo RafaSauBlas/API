@@ -74,7 +74,8 @@ class Contratos extends Controller
 
           //return $vale." - ".$monto." - ".$plazo." - ".$calle." - ".$colonia." - ".$ciudad." - ".$estado;
           //return self::GENERA_LIMITE("2023/01/03", 6);
-          return self::TRAERCLIENTE($vale);
+
+          return self::PREPARAR($vale, $monto, $plazo, $calle, $colonia, $ciudad, $estado);
 
        }
        catch(Throwable $e){
@@ -106,18 +107,18 @@ class Contratos extends Controller
        }
     }
 
-    public function GENERA_LIMITE($fecha, $rango){
+    public function GENERA_LIMITE($fe, $plazo){
        try{
          $i = 1;
-         $fec = $fecha;
+         $fec = $fe;
          
-         while($i <= $rango){
+         while($i <= $plazo){
 
-            $fecha = $fecha." - ".date("Y/m/d", strtotime($fec."+ 15 days"));
+            $fe = $fe." - ".date("Y/m/d", strtotime($fec."+ 15 days"));
             $i++;
             $fec = date("Y/m/d", strtotime($fec."+ 15 days"));
          }
-         return $fecha;
+         return $fe;
        }
        catch(Throwable $e){
          report($e);
@@ -129,13 +130,13 @@ class Contratos extends Controller
        try{
           
           $update = DB::table('FATB_Clientes')
-                      ->where('FAdc_CveCliente', $id)
+                      ->where('FAnv_CveCliente', $id)
                       ->update([
-                                'FAnv_Cd' => $ciudad,
-                                'FAnv_FiscalCd' => $ciudad,
-                                'FAnv_FiscalColonia' => $colonia,
-                                'FAnv_DirFiscal' => $colonia,
-                                'FAnv_Calle' => $calle
+                                'FAnv_Cd' => strtoupper($ciudad),
+                                'FAnv_FiscalCd' => strtoupper($ciudad),
+                                'FAnv_FiscalColonia' => strtoupper($colonia),
+                                'FAnv_DirFiscal' => strtoupper($colonia),
+                                'FAnv_Calle' => strtoupper($calle)
                               ]);
          return true;
 
@@ -146,10 +147,35 @@ class Contratos extends Controller
        }
     }
 
-    public function TRAERCLIENTE($vale){
+    public function PREPARAR($vale, $monto, $plazo, $calle, $colonia, $ciudad, $estado){
        try{
-        $cliente = DB::table("FATB_DistibuidorVales")->where("FAdc_IdVale", $vale)->select("FAdc_CveCliente")->first();
-        return $cliente->FAdc_CveCliente;
+
+        $cliente_id = DB::table("FATB_DistibuidorVales")->where("FAdc_IdVale", $vale)->select("FAin_IdDistri", "FAdc_CveCliente")->first();
+        $id = $cliente_id->FAdc_CveCliente;
+        $iddistrib = $cliente_id->FAin_IdDistri;
+
+        $cliente = DB::table("FATB_Clientes")->where("FAnv_CveCliente", $id)->select("FAnv_CveCliente", "FAnv_Razon", "FAnv_Nombres", "FAnv_APaterno", 
+                                                                                     "FAnv_AMaterno")->first();
+
+        $folio = self::ENCABEZADO($vale, $cliente, $calle, $colonia, $estado, $ciudad, $monto, $plazo, $iddistrib);
+        $fech = Carbon::now()->format('Y-m-d');
+        $fecha = self::PROP($fech, $plazo);
+        
+        $indice = 0;
+        $seg = DB::table("parametros")->where("idparametro", 1)->select("valor")->first();
+        $seguro = $seg->valor;
+
+        for($i = 1; $i <= $plazo; $i++){
+           $verif = self::DETALLADO($folio, $vale, $i, $plazo, $monto, $fecha[$indice], $seguro, $iddistrib);
+           $indice +=1;
+        }
+        if($verif === true){
+          return self::ACTUALIZACLIENTE($id, $ciudad, $estado, $calle, $colonia);
+        }
+        else{
+          return false;
+        }
+
        }
        catch(Throwable $e){
           report($e);
@@ -157,13 +183,36 @@ class Contratos extends Controller
        }
     }
 
-    public function ENCABEZADO($vale){
-       try{
+    public function PROP($fecha, $plazo){
+       $plan = array();
+       $fec = strtotime($fecha);
 
-          DB::table("SCTB_Contrato")->insert([
+       if(date("d", $fec) > "01"){
+         $fecha = date("Y-m-01", strtotime($fecha."+ 1 month"));
+       }
+
+       $index = 1;
+       for($i = 0; $i <= $plazo - 1; $i++){
+          if($index === 1){
+            $plan[$i] = date("Y-m-15", strtotime($fecha));
+            $index += 1;
+          }
+          else{
+            $plan[$i] = date("Y-m-t", strtotime($fecha));
+            $fecha = date("Y-m-01", strtotime($fecha."+ 1 month"));
+            $index = 1;
+          }
+       }
+       return $plan;
+    }
+
+    public function ENCABEZADO($vale, $cliente, $calle, $colonia, $estado, $ciudad, $monto, $plazo, $distrib){
+       try{
+          //SCTB_Contrato
+          DB::table("PRU_Contrato")->insert([
               "CACon_Plaza" => 1,
               "CACon_Nucia" => 1,
-              // "CACon_Folio" => 1,
+              //"CACon_Folio" => 1,
               "CACon_Curp" => "",
               "CACon_Tipo" => "M",
               "CACon_TipoCredito" => "M",
@@ -172,11 +221,11 @@ class Contratos extends Controller
               "CACon_FechaContrato" => Carbon::now()->format('Y-m-d').'T00:00:00.000',
               "CACon_ContratoAnterior" => "",
               "CACon_ContratoSustituye" => "",
-              "CACon_CveCliente" => $cliente,
-              "CACon_Cliente" => $clientenombre,
-              "CACon_APaterno" => $clienteapaterno,
-              "CACon_AMaterno" => $clienteamaterno,
-              "CACon_Nombres" => $clientenombre,
+              "CACon_CveCliente" => $cliente->FAnv_CveCliente,
+              "CACon_Cliente" => $cliente->FAnv_Razon,
+              "CACon_APaterno" => $cliente->FAnv_APaterno,
+              "CACon_AMaterno" => $cliente->FAnv_AMaterno,
+              "CACon_Nombres" => $cliente->FAnv_Nombres,
               "CACon_RFC" => "",
               "CACon_DirFiscal" => $calle,
               "CACon_Colonia" => $colonia,
@@ -212,12 +261,12 @@ class Contratos extends Controller
               "CACon_ImporteSeg1" => 28,
               "CACon_ImporteSeg2" => 0,
               "CACon_GastosAdmin" => 0,
-              "CACon_ValorOperacion" => $importe,
-              "CACon_PagoQuincenal" => ($importe / $nopagos),
+              "CACon_ValorOperacion" => $monto,
+              "CACon_PagoQuincenal" => ($monto / $plazo),
               "CACon_PorIntMora" => 0,
-              "CACon_NoDoctos" => $nopagos,
-              "CACon_Vencimientos" => $nopagos,
-              "CACon_ImporteDoctos" => ($importe / $nopagos),
+              "CACon_NoDoctos" => $plazo,
+              "CACon_Vencimientos" => $plazo,
+              "CACon_ImporteDoctos" => ($monto / $plazo),
               "CACon_Estatus" => "D",
               "CACon_IdAutoriza" => "ADMIN",
               "CACon_FechaAutoriza" => Carbon::now()->format('Y-m-d').'T00:00:00.000',
@@ -230,7 +279,7 @@ class Contratos extends Controller
               "CACon_TextoLegal" => "",
               "CACon_porintmoracalculo" => 0,
               "CACon_AnuaNumero" => 0,
-              "CACon_Anualimporte" => 0,
+              "CACon_AnuaImporte" => 0,
               "CACon_AnuaEmpiezaEn" => 0,
               "CACon_CalculoPlazoendias" => 0,
               "CACon_XSaldosInsolutos" => 0,
@@ -254,14 +303,15 @@ class Contratos extends Controller
               "CACon_Agente" => "",
               "CACon_CveGaran" => "",
               "CACon_IdDistrib" => $distrib,
-              "CACon_IndPago" => 0,
-              "CACon_FecVenci" => "NULL",
+              "CACon_IndPagado" => 0,
+              "CACon_FecVenci" => NULL,
               "CACon_SaldosAlVenci" => 0,
               "CACon_SinIntereses" => 0,
               "CACon_Saldo" => 0,
               "CACon_TipoAmort" => "",
               "CACon_PlazoDias" => 0,
               "CaCon_CalFijSI" => 0,
+              "CaCon_TasaSeg" => 0,
               "CaCon_Cono" => 0,
               "CaCon_CAT" => 0,
               "CACon_ShowCV" => 1,
@@ -269,18 +319,18 @@ class Contratos extends Controller
               "CACon_ValorEquipo" => 0,
               "CACon_DescEq" => "",
               "CACon_Act" => "",
-              "CACon_GarantiaL" => 0,
+              "CAConGarantiaL" => 0,
               "CACon_Testigo1" => "",
               "CACon_Testigo2" => "",
               "CACon_ComisionAper" => 0,
               "CA_ConPagoTInicial" => 0,
               "CACon_EnganchePor" => 0,
-              "CACon_ContratoPor" => "NULL",
+              "CACon_ContratoPor" => NULL,
               "CACon_tpersona" => "F",
               "CACon_Riesgo" => 0,
-              "CACon_Pareja" => "NULL",
+              "CACon_Pareja" => NULL,
               "CACon_ValSegAlMillar" => 0,
-              "CACON_HM" => "NULL",
+              "CACON_HM" => NULL,
               "CACon_ConIVA" => 0,
               "CACon_ConSaldosInMayor" => 0,
               "CACon_ConSaldosInIndiv" => 0,
@@ -312,12 +362,12 @@ class Contratos extends Controller
               "CaCon_Clabe" => "",
               "CACON_EMPNOMBRENOMINA" => "",
               "CACON_EMPTASAINTNOMINA" => 0,
-              "CACON_EMPAMORI_NOMINA" => "",
+              "CACON_EMPAMORTI_NOMINA" => "",
               "CACON_INTMENSUAL" => 0,
               "CACON_HECTAREAS" => 0,
               "CACON_PORCOMISIONAPER" => 0,
               "CACON_ANUALIDAD" => 0,
-              "CACON_FECANUALIDAD" => "NULL",
+              "CACON_FECANUALIDAD" => NULL,
               "CACON_FIEL" => "",
               "CACON_PAISNAc" => "",
               "CACON_nacionalidad" => "",
@@ -339,11 +389,14 @@ class Contratos extends Controller
               "CACON_STPID" => "",
               "CACON_STPSTATUS" => "",
               "CACON_STPBANCO" => "",
-              "Cliente_ZT" => "NULL",
-              "Ticket_ZT" => "NULL",
-              "Distri_ZT" => "NULL"
+              "Cliente_ZT" => "",
+              "Ticket_ZT" => "",
+              "Distri_ZT" => ""
           ]);
 
+          $id = DB::table("PRU_Contrato")->where("CACon_Contrato", $vale)->select("CACon_Folio")->first();
+
+          return $id->CACon_Folio;
        }
        catch(Throwable $e){
          report($e);
@@ -351,83 +404,91 @@ class Contratos extends Controller
        }
     }
 
-    public function PROP(){
-      return date("Y-m-15", strtotime(Carbon::now()->format('Y-m-d')."+ 1 month"));
-    }
-
-    public function DETALLADO(){
+    public function DETALLADO($folio, $vale, $no, $plazo, $monto, $fecha, $seguro, $distrib){
       try{
-        DB::table("SCTB_ContratoDet")->insert([
+
+        if($no === 1){
+          $primer = $monto + $seguro;
+        }
+        else{
+          $primer = $monto;
+          $seguro = 0;
+        }
+
+        //SCTB_ContratoDet
+        DB::table("PRU_ContratoDet")->insert([
             "CADet_NuCia" => 1,
             //"CADet_foliodet" => ,
             "CADet_docextra" => "",
             "CADet_Print" => 1,
             "CADet_folio" => $folio,
-            "CADet_fechagenera" => Carbon::now()->format('Y-m-d').'T00:00:00.000',
+            "CADet_fechagenera" => Carbon::now()->format('Y-m-d').' 00:00:00.000',
             "CADet_contrato" => $vale,
-            "CADet_docno" => "PRUEBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "CADet_docno" => $no."/".$plazo,
             "CADet_descrip" => $vale,
-            "CADet_Venci",
-            "CADet_Capital",
-            "CADet_Amortizar",
-            "CADet_MesCurso",
-            "CADet_DiasTrans",
-            "CADet_DiasReales",
-            "CACon_CveTasaVar",
-            "CADet_IntTasa",
-            "CADet_Tasa",
-            "CADet_IntCalculo",
-            "CADet_IntOrd",
-            "CADet_Seguro",
-            "CADet_ImpDocto",
-            "CADet_DiasMora",
-            "CADet_TasaMora",
-            "CADet_IntxMora",
-            "CADet_BonifInt",
-            "CADet_Abono",
-            "CADet_TotalPago",
-            "CADet_Saldo",
-            "CADet_FechaPago",
-            "CADet_ReciboSerie",
-            "CADet_Recibo",
-            "CARec_cveuni",
-            "CADet_Id",
-            "CADet_fecham",
-            "CADet_CveUni",
-            "CADet_IvaInteres",
-            "CADet_ShowCV",
-            "SELCEL",
-            "CADet_Pagointeres",
-            "CADet_PagoSeguro",
-            "CADet_PagoCapital",
-            "CaDet_FactInteres",
-            "CaDet_FecFactura",
-            "CADet_SaldoCapital",
-            "CADet_SaldoInteres",
-            "CADet_VenciDocto",
-            "CADet_SaldoSeg",
-            "CaDet_PAIng",
-            "CADet_AbonoCapital",
-            "CADet_AbonoSeg",
-            "CADet_AbonoInteres",
-            "SEL",
-            "CADet_IvaMora",
-            "CADet_IntEmp",
-            "CADet_IntDis",
-            "CADet_IntPor",
-            "CaDet_Producto",
-            "CaDet_Distr",
-            "CADet_SeguroAbono",
-            "CADet_SeguroSaldo",
-            "CADet_Invest",
-            "CADet_Admon",
-            "CADet_SegAuto",
-            "CaDet_Comercio",
-            "CADET_Ministracion",
-            "CADET_SALDOAFAVOR",
-            "cadet_fechanew",
-            "Ticket_ZT"
+            "CADet_Venci" => date("d-m-Y", strtotime($fecha)),
+            "CADet_Capital" => $monto,
+            "CADet_Amortiza" => $monto,
+            "CADet_MesCurso" => date("d-m-Y", strtotime($fecha)),
+            "CADet_DiasTrans" => $plazo,
+            "CADet_DiasReales" => 0,
+            "CACon_CveTasaVar" => 0,
+            "CADet_IntTasa" => 0,
+            "CADet_Tasa" => 0,
+            "CADet_IntCalculo" => 0,
+            "CADet_IntOrd" => 0,
+            "CADet_Seguro" => $seguro, //SOLO SI ES EL PRIMERO
+            "CADet_ImpDocto" => $primer, //SOLO SI ES EL PRIMERO
+            "CADet_DiasMora" => 0,
+            "CADet_TasaMora" => 0,
+            "CADet_IntxMora" => 0,
+            "CADet_BonifInt" => 0,
+            "CADet_Abono" => 0,
+            "CADet_TotalPago" => $primer, //SOLO SI ES EL PRIMERO
+            "CADet_Saldo" => $primer, //SOLO SI ES EL PRIMERO
+            "CADet_FechaPago" => "1900-01-01 00:00:00.000",
+            "CADet_ReciboSerie" => "",
+            "CADet_Recibo" => 0,
+            "CARec_cveuni" => "",
+            "CADet_Id" => "ADMIN",
+            "CADet_fecha" => Carbon::now()->format('Y-m-d H:m:s.000'),
+            "CADet_CveUni" => "",
+            "CADet_IvaInteres" => 0,
+            "CADet_ShowCV" => 1,
+            "SELCEL" => 0,
+            "CADet_Pagointeres" => 0,
+            "CADet_PagoSeguro" => 0,
+            "CADet_PagoCapital" => 0,
+            "CaDet_FactInteres" => 0,
+            "CaDet_FecFactura" => NULL,
+            "CADet_SaldoCapital" => 0,
+            "CADet_SaldoInteres" => 0,
+            "CADet_VenciDocto" => Carbon::now()->format('Y-m-d H:m:s.000'),
+            "CADet_SaldoSeg" => 0,
+            "CaDet_PAInt" => NULL,
+            "CADet_AbonoCapital" => 0,
+            "CADet_AbonoSeg" => 0,
+            "CADet_AbonoInteres" => 0,
+            "SEL" => 0,
+            "CADet_IvaMora" => 0,
+            "CADet_IntEmp" => 0,
+            "CADet_IntDis" => 0,
+            "CADet_IntPor" => 0,
+            "CaDet_Producto" => 7,
+            "CaDet_Distr" => $distrib,
+            "CADet_SeguroAbono" => 0,
+            "CADet_SeguroSaldo" => 0,
+            "CADet_Invest" => 0,
+            "CADet_Admon" => 0,
+            "CADet_SegAuto" => 0,
+            "CaDet_Comercio" => 130,
+            "CADET_Ministracion" => 0,
+            "CADET_SALDOAFAVOR" => 0,
+            "cadet_fechanew" => NULL,
+            "Ticket_ZT" => ""
         ]);
+
+        return true;
       }
       catch(Throwable $e){
         report($e);
