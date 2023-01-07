@@ -6,7 +6,7 @@ use App\Http\Controllers\Clientes;
 use App\Http\Controllers\ValesDigital;
 use App\Http\Controllers\Contratos;
 use App\Http\Controllers\Quincenas;
-use App\Http\Controller\Control;
+use App\Http\Controllers\Control;
 
 /*
 |--------------------------------------------------------------------------

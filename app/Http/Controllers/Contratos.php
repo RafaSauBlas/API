@@ -85,18 +85,18 @@ class Contratos extends Controller
 
     public function VALIDARPARAM(Request $request, $campo){
        try{
-        //Verificamos que la peticion contega el parametro
-        if($request->has($campo)){
-            //Verificamos que el parametro no esté vacio
-            if($request->filled($campo)){
-              return true;
-            }
-            else{
-              return response()->error("El parametro '".$campo."' no contiene un valor asignado.");
-            }
+          //Verificamos que la peticion contega el parametro
+          if($request->has($campo)){
+             //Verificamos que el parametro no esté vacio
+             if($request->filled($campo)){
+                return true;
+             }
+             else{
+                return response()->error("El parametro '".$campo."' no contiene un valor asignado.");
+             }
           }
           else{
-            return response()->error("La petición no contiene el parametro '".$campo."'.");
+             return response()->error("La petición no contiene el parametro '".$campo."'.");
           }
   
        }
@@ -146,14 +146,14 @@ class Contratos extends Controller
         $seguro = $seg->valor;
 
         for($i = 1; $i <= $plazo; $i++){
-           $verif = self::DETALLADO($folio, $vale, $i, $plazo, $monto, $fecha[$indice], $seguro, $iddistrib);
-           $indice +=1;
+            $verif = self::DETALLADO($folio, $vale, $i, $plazo, $monto, $fecha[$indice], $seguro, $iddistrib);
+            $indice +=1;
         }
         if($verif === true){
-          return self::ACTUALIZACLIENTE($id, $ciudad, $estado, $calle, $colonia);
+           return self::ACTUALIZACLIENTE($id, $ciudad, $estado, $calle, $colonia);
         }
         else{
-          return false;
+           return false;
         }
 
        }
@@ -168,19 +168,19 @@ class Contratos extends Controller
        $fec = strtotime($fecha);
 
        if(date("d", $fec) > "01"){
-         $fecha = date("Y-m-01", strtotime($fecha."+ 1 month"));
+          $fecha = date("Y-m-01", strtotime($fecha."+ 1 month"));
        }
 
        $index = 1;
        for($i = 0; $i <= $plazo - 1; $i++){
           if($index === 1){
-            $plan[$i] = date("Y-m-15", strtotime($fecha));
-            $index += 1;
+             $plan[$i] = date("Y-m-15", strtotime($fecha));
+             $index += 1;
           }
           else{
-            $plan[$i] = date("Y-m-t", strtotime($fecha));
-            $fecha = date("Y-m-01", strtotime($fecha."+ 1 month"));
-            $index = 1;
+             $plan[$i] = date("Y-m-t", strtotime($fecha));
+             $fecha = date("Y-m-01", strtotime($fecha."+ 1 month"));
+             $index = 1;
           }
        }
        return $plan;
@@ -189,16 +189,15 @@ class Contratos extends Controller
     public function ENCABEZADO($vale, $cliente, $calle, $colonia, $estado, $ciudad, $monto, $plazo, $distrib){
        try{
           //SCTB_Contrato
-          DB::table("PRU_Contrato")->insert([
+          DB::table("SCTB_Contrato")->insert([
               "CACon_Plaza" => 1,
               "CACon_Nucia" => 1,
-              //"CACon_Folio" => 1,
               "CACon_Curp" => "",
               "CACon_Tipo" => "M",
               "CACon_TipoCredito" => "M",
               "CACon_Contrato" => $vale,
-              "CACon_FecCotiza" => Carbon::now()->format('Y-m-d').'T00:00:00.000',
-              "CACon_FechaContrato" => Carbon::now()->format('Y-m-d').'T00:00:00.000',
+              "CACon_FecCotiza" => Carbon::now()->format('Y-m-d H:m:s.000'),
+              "CACon_FechaContrato" => Carbon::now()->format('Y-m-d H:m:s.000'),
               "CACon_ContratoAnterior" => "",
               "CACon_ContratoSustituye" => "",
               "CACon_CveCliente" => $cliente->FAnv_CveCliente,
@@ -222,7 +221,7 @@ class Contratos extends Controller
               "CACon_PlazoQuincena" => 20,
               "CACon_PlazoAplicaRen" => 0,
               "CACon_PlazoRenovaAl" => 0,
-              "CACon_FechaInicio" => Carbon::now()->format('Y-m-d').'T00:00:00.000',
+              "CACon_FechaInicio" => Carbon::now()->format('Y-m-d H:m:s.000'),
               "CACon_FechaPrimerPago" => "",
               "CACon_FechaVencimiento" => "",
               "CACon_ParaInvertir" => "",
@@ -249,10 +248,10 @@ class Contratos extends Controller
               "CACon_ImporteDoctos" => round($monto / $plazo),
               "CACon_Estatus" => "D",
               "CACon_IdAutoriza" => "ADMIN",
-              "CACon_FechaAutoriza" => Carbon::now()->format('Y-m-d').'T00:00:00.000',
+              "CACon_FechaAutoriza" => Carbon::now()->format('Y-m-d H:m:s.000'),
               "CACon_Observa" => "",
               "CACon_Id" => "ADMIN",
-              "CACon_Fecha" => Carbon::now()->format('Y-m-d').'T00:00:00.000',
+              "CACon_Fecha" => Carbon::now()->format('Y-m-d H:m:s.000'),
               "CACon_Movtos" => 0,
               "CACon_CtaContable" => "",
               "CACon_CtaIntxDev" => "",
@@ -327,8 +326,8 @@ class Contratos extends Controller
               "CACon_SeguroDetalle" => 0,
               "CACon_SeguroBenef" => 0,
               "CACon_SeguroParen" => 0,
-              "CACon_SeguroFecNac" => Carbon::now()->format('Y-m-d').'T00:00:00.000',
-              "CACon_CliFecNac" => Carbon::now()->format('Y-m-d').'T00:00:00.000',
+              "CACon_SeguroFecNac" => Carbon::now()->format('Y-m-d H:m:s.000'),
+              "CACon_CliFecNac" => Carbon::now()->format('Y-m-d H:m:s.000'),
               "CACon_Poliza" => "",
               "CACon_Categoria" => "",
               "CACon_SegAuto" => 0,
@@ -395,7 +394,7 @@ class Contratos extends Controller
           for($i = 0; $i <= $plazo - 1; $i++){
             $segundo += round(($monto / $plazo)) - ($monto / $plazo);
           }
-          $primer = round(($monto / $plazo)) -$segundo;
+          $primer = round(($monto / $plazo)) - $segundo;
           $seguro = 0;
         }
         else{
@@ -404,7 +403,7 @@ class Contratos extends Controller
         }
 
         //SCTB_ContratoDet
-        DB::table("PRU_ContratoDet")->insert([
+        DB::table("SCTB_ContratoDet")->insert([
             "CADet_NuCia" => 1,
             //"CADet_foliodet" => ,
             "CADet_docextra" => "",
