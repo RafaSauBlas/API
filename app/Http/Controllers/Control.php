@@ -15,6 +15,20 @@ class Control extends Controller
 {
     public function TRAER_LIMITE(Request $request){
         try{
+
+            if($request->has("monto")){
+                //Verificamos que el parametro no esté vacio
+                if($request->filled("monto")){
+                   return true;
+                }
+                else{
+                   return response()->error("El parametro 'monto' no contiene un valor asignado.");
+                }
+             }
+             else{
+                return response()->error("La petición no contiene el parametro 'monto'.");
+             }
+
             $limites1 = DB::table("Quincenas")->where("idquincenas", 1)->select("valorini")->first();
             $limites2 = DB::table("Quincenas")->where("idquincenas", 15)->select("valorfin")->first();
             $lim1 = $limites1->valorini;
