@@ -118,8 +118,7 @@ class Contratos extends Controller
                                 'FAnv_DirFiscal' => strtoupper($colonia),
                                 'FAnv_Calle' => strtoupper($calle)
                               ]);
-         return true;
-
+          return response()->informacion(true);
        }
        catch(Throwable $e){
          report($e);

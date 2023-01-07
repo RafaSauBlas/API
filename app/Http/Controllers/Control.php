@@ -21,10 +21,10 @@ class Control extends Controller
             $lim2 = $limites2->valorfin;
 
             if($request->monto >= $lim1 && $request->monto <= $lim2){
-                return true;
+                return response()->informacion(true);
             }
             else{
-                return false;
+                return response()->informacion(false);
             }
         }
         catch(Throwable $e){
