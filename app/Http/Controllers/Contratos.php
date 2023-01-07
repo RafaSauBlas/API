@@ -129,31 +129,31 @@ class Contratos extends Controller
     public function PREPARAR($vale, $monto, $plazo, $calle, $colonia, $ciudad, $estado){
        try{
 
-        $cliente_id = DB::table("FATB_DistibuidorVales")->where("FAdc_IdVale", $vale)->select("FAin_IdDistri", "FAdc_CveCliente")->first();
-        $id = $cliente_id->FAdc_CveCliente;
-        $iddistrib = $cliente_id->FAin_IdDistri;
+          $cliente_id = DB::table("FATB_DistibuidorVales")->where("FAdc_IdVale", $vale)->select("FAin_IdDistri", "FAdc_CveCliente")->first();
+          $id = $cliente_id->FAdc_CveCliente;
+          $iddistrib = $cliente_id->FAin_IdDistri;
 
-        $cliente = DB::table("FATB_Clientes")->where("FAnv_CveCliente", $id)->select("FAnv_CveCliente", "FAnv_Razon", "FAnv_Nombres", "FAnv_APaterno", 
-                                                                                     "FAnv_AMaterno")->first();
+          $cliente = DB::table("FATB_Clientes")->where("FAnv_CveCliente", $id)->select("FAnv_CveCliente", "FAnv_Razon", "FAnv_Nombres", "FAnv_APaterno", 
+                                                                                       "FAnv_AMaterno")->first();
 
-        $folio = self::ENCABEZADO($vale, $cliente, $calle, $colonia, $estado, $ciudad, $monto, $plazo, $iddistrib);
-        $fech = Carbon::now()->format('Y-m-d');
-        $fecha = self::PROP($fech, $plazo);
+          $folio = self::ENCABEZADO($vale, $cliente, $calle, $colonia, $estado, $ciudad, $monto, $plazo, $iddistrib);
+          $fech = Carbon::now()->format('Y-m-d');
+          $fecha = self::PROP($fech, $plazo);
         
-        $indice = 0;
-        $seg = DB::table("parametros")->where("idparametro", 1)->select("valor")->first();
-        $seguro = $seg->valor;
+          $indice = 0;
+          $seg = DB::table("parametros")->where("idparametro", 1)->select("valor")->first();
+          $seguro = $seg->valor;
 
-        for($i = 1; $i <= $plazo; $i++){
-            $verif = self::DETALLADO($folio, $vale, $i, $plazo, $monto, $fecha[$indice], $seguro, $iddistrib);
-            $indice +=1;
-        }
-        if($verif === true){
-           return self::ACTUALIZACLIENTE($id, $ciudad, $estado, $calle, $colonia);
-        }
-        else{
-           return false;
-        }
+          for($i = 1; $i <= $plazo; $i++){
+              $verif = self::DETALLADO($folio, $vale, $i, $plazo, $monto, $fecha[$indice], $seguro, $iddistrib);
+              $indice +=1;
+          }
+          if($verif === true){
+             return self::ACTUALIZACLIENTE($id, $ciudad, $estado, $calle, $colonia);
+          }
+          else{
+             return false;
+          }
 
        }
        catch(Throwable $e){

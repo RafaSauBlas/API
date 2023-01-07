@@ -19,7 +19,7 @@ class Control extends Controller
             if($request->has("monto")){
                 //Verificamos que el parametro no esté vacio
                 if($request->filled("monto")){
-                   return true;
+                   $monto = $request->monto;
                 }
                 else{
                    return response()->error("El parametro 'monto' no contiene un valor asignado.");
@@ -34,7 +34,7 @@ class Control extends Controller
             $lim1 = $limites1->valorini;
             $lim2 = $limites2->valorfin;
 
-            if($request->monto >= $lim1 && $request->monto <= $lim2){
+            if($monto >= $lim1 && $monto <= $lim2){
                 return response()->informacion(true);
             }
             else{
