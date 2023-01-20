@@ -10,6 +10,7 @@ use Nullix\CryptoJsAes\CryptoJsAes;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Response;
+use Throwable;
 
 class Control extends Controller
 {

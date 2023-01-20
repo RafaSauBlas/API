@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Crypt;
 use Nullix\CryptoJsAes\CryptoJsAes;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\ServiceProvider;
+use Throwable;
 
 class ValesDigital extends Controller
 {

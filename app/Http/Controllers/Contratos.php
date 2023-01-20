@@ -10,6 +10,7 @@ use Nullix\CryptoJsAes\CryptoJsAes;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Response;
+use Throwable;
 
 class Contratos extends Controller
 {
@@ -109,14 +110,14 @@ class Contratos extends Controller
     public function ACTUALIZACLIENTE($id, $ciudad, $estado, $calle, $colonia){
        try{
           
-          $update = DB::table('FATB_Clientes')
-                      ->where('FAnv_CveCliente', $id)
+          $update = DB::table("FATB_Clientes")
+                      ->where("FAnv_CveCliente", $id)
                       ->update([
-                                'FAnv_Cd' => strtoupper($ciudad),
-                                'FAnv_FiscalCd' => strtoupper($ciudad),
-                                'FAnv_FiscalColonia' => strtoupper($colonia),
-                                'FAnv_DirFiscal' => strtoupper($colonia),
-                                'FAnv_Calle' => strtoupper($calle)
+                                "FAnv_Cd" => strtoupper($ciudad),
+                                "FAnv_FiscalCd" => strtoupper($ciudad),
+                                "FAnv_FiscalColonia" => strtoupper($colonia),
+                                "FAnv_DirFiscal" => strtoupper($colonia),
+                                "FAnv_Calle" => strtoupper($calle)
                               ]);
           return response()->informacion(true);
        }
