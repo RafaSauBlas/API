@@ -14,7 +14,49 @@ use Throwable;
 
 class ValesDigital extends Controller
 {
-    public function VERIFICAR(Request $request){
+  /*
+    ----- PARAMETROS REQUERIDOS -----
+    vale
+    cuentap
+    fecha
+    importe
+  */
+
+    public function TRAER_LIMITE(Request $request){
+      try{
+
+        if($request->has("importe")){
+            //Verificamos que el parametro no esté vacio
+            if($request->filled("importe")){
+               $monto = $request->importe;
+            }
+            else{
+               return response()->error("El parametro 'importe' no contiene un valor asignado.");
+            }
+         }
+         else{
+            return response()->error("La petición no contiene el parametro 'importe'.");
+         }
+
+        $limites1 = DB::table("Quincenas")->where("idquincenas", 1)->select("valorini")->first();
+        $limites2 = DB::table("Quincenas")->where("idquincenas", 15)->select("valorfin")->first();
+        $lim1 = $limites1->valorini;
+        $lim2 = $limites2->valorfin;
+
+        if($monto >= $lim1 && $monto <= $lim2){
+            return self::VERIFICAR($request);
+        }
+        else{
+            return response()->informacion(false);
+        }
+      }
+      catch(Throwable $e){
+        report($e);
+        return false;
+      }
+    }
+
+    public function VERIFICAR($request){
       try{
 
         //Verificamos que la petición contenga el parametro "Vale"
@@ -24,20 +66,44 @@ class ValesDigital extends Controller
             //Validamos que el folio tenga el formato correcto
             if(substr($request->vale, 0, 2) === "VE" || substr($request->vale, 0, 2) === "ve" && Str::of($request->vale)->length() === 8){
               $vale = $request->vale;
+              $tipo = 1;
             }
             else{
               return response()->error("El folio introducido no es un folio valido.");
             }
           }
           else{
-            return response()->error("El parametro 'vale' no contiene un valor asignado.");
+            
+            if($request->has("cuentap")){
+              if($request->filled("cuentap")){
+
+                if(substr($request->cuentap, 0, 2) === "TC" || substr($request->cuentap, 0, 2) === "tc" && Str::of($request->cuentap)->length() === 8){
+                  $vale = $request->cuentap;
+                  $tipo = 2;
+                }
+                else{
+                  return response()->error("El folio introducido no es un folio valido.");
+                }
+
+              }
+              else{
+                return response()->error("El parametro 'cuentap' no contiene un valor asignado.");
+              }
+            }
+            else{
+              return response()->error("La petición no contiene el parametro 'cuentap'.");
+            }
+
+
+
           }
         }
         else{
           return response()->error("La petición no contiene el parametro 'vale'.");
         }
 
-        //Verificamos que la petición contenga el parametro "Fecha"
+        if($tipo == 1){
+          //Verificamos que la petición contenga el parametro "Fecha"
         if($request->has("fecha")){
           //Verificamos que el parametro "Vale" no esté vacio
           if($request->filled("fecha")){
@@ -49,6 +115,7 @@ class ValesDigital extends Controller
         }
         else{
           return response()->error("La petición no contiene el parametro 'fecha'.");
+        }
         }
 
         //Verificamos que la petición contenga el parametro "Importe"
@@ -78,7 +145,9 @@ class ValesDigital extends Controller
 
           $disponible = self::CalcularDisponible($id);
 
-          //Validamos la vigencia del vale (Se le suman 30 dias a la fecha en la que se generó el vale)
+          //Validamos que tipo de cuenta es, si el tipo de cuenta es 1(Vale) se valida la fecha de vencimiento, si la cuenta es tipo 2(credito personal) se salta esa validación
+          if($tipo == 1){
+            //Validamos la vigencia del vale (Se le suman 30 dias a la fecha en la que se generó el vale)
             if(date("Y/m/d", strtotime($fecha)) >= date("Y/m/d", strtotime($exist->FAdt_Fecha)) &&
                date("Y/m/d", strtotime($fecha)) <= date("Y/m/d", strtotime($exist->FAdt_Fecha."+ 30 days")) && $importe <= $disponible){
                return response()->informacion(true);
@@ -86,6 +155,16 @@ class ValesDigital extends Controller
             else{
               return response()->informacion(false);
             }
+          }
+          else{
+            if($importe <= $disponible){
+               return response()->informacion(true);
+            }
+            else{
+              return response()->informacion(false);
+            }
+          }
+            
 
         }
 

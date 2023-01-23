@@ -61,7 +61,7 @@ class Quincenas extends Controller
                 }
                 $admin = DB::table("parametros")->where("idparametro", 1)->select("valor")->first();
                 $cargo = $admin->valor;
-
+                
                 return response()->respuesta($plazos, $cargo);
             }
             else{
