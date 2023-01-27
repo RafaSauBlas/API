@@ -94,8 +94,6 @@ class ValesDigital extends Controller
               return response()->error("La petición no contiene el parametro 'cuentap'.");
             }
 
-
-
           }
         }
         else{

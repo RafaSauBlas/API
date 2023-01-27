@@ -15,8 +15,42 @@ use Throwable;
 
 class Contratos extends Controller
 {
+    /*
+      ----- PARAMETROS REQUERIDOS -----
+      foliov
+      vale
+      plazo
+      cargoadmin
+      envio
+      impuesto
+      formapago
+      subtotal
+      monto
+      items
+		  cantidad
+        sku
+        precio
+		  cantidad
+        sku
+        precio
+      calle
+      colonia
+      cp
+      ciudad
+      estado
+      telefono
+    */
+
     public function PRIMER(Request $request){
        try{
+
+         //Verificamos que la petición contenga el parametro "FolioV"
+         if(self::VALIDARPARAM($request, "foliov") === true){
+            $foliov = $request->foliov;
+          }
+          else{
+            return self::VALIDARPARAM($request, "foliov");
+          }
 
           //Verificamos que la petición contenga el parametro "Vale"
           if(self::VALIDARPARAM($request, "vale") === true){
@@ -82,24 +116,8 @@ class Contratos extends Controller
             return self::VALIDARPARAM($request, "formapago");
           }
 
-          //Verificamos que la petición contenga el parametro "Items"
-          if(self::VALIDARPARAM($request, "items") === true){
-            $items = $request->items;
-
-            
-            if(self::VERIFARRAY($request) === true){
-
-            }
-            else{
-               return self::VERIFARRAY($request);
-            }
-          }
-          else{
-            return self::VALIDARPARAM($request, "items");
-          }
-
           //Verificamos que la petición contenga el parametro "Calle"
-          if(self::VALIDAA($request, "calle") === true){
+          if(self::VALIDARPARAM($request, "calle") === true){
             $calle = $request->calle;
           }
           else{
@@ -145,9 +163,22 @@ class Contratos extends Controller
           else{
             return self::VALIDARPARAM($request, "telefono");
           }
+          
+          //Verificamos que la petición contenga el parametro "Items"
+          if(self::VALIDARPARAM($request, "items") === true){
+            $items = $request->items;
 
-
-
+            
+            if(self::VERIFARRAY($request) === true){
+               $items2 = $request->items;
+            }
+            else{
+               return self::VERIFARRAY($request);
+            }
+          }
+          else{
+            return self::VALIDARPARAM($request, "items");
+          }
 
 
           //return self::PREPARAR($vale, $monto, $plazo, $calle, $colonia, $ciudad, $estado);
@@ -199,7 +230,7 @@ class Contratos extends Controller
       }
       catch(Throwable $e){
          report($e);
-         return $e;
+         return false;
       }
     }
 
