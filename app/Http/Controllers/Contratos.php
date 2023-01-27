@@ -10,6 +10,7 @@ use Nullix\CryptoJsAes\CryptoJsAes;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Facades\Validator;
 use Throwable;
 
 class Contratos extends Controller
@@ -25,14 +26,6 @@ class Contratos extends Controller
             return self::VALIDARPARAM($request, "vale");
           }
 
-          //Verificamos que la petición contenga el parametro "Monto"
-          if(self::VALIDARPARAM($request, "monto") === true){
-            $monto = $request->monto;
-          }
-          else{
-            return self::VALIDARPARAM($request, "monto");
-          }
-
           //Verificamos que la petición contenga el parametro "Plazo"
           if(self::VALIDARPARAM($request, "plazo") === true){
             $plazo = $request->plazo;
@@ -41,8 +34,72 @@ class Contratos extends Controller
             return self::VALIDARPARAM($request, "plazo");
           }
 
+          //Verificamos que la petición contenga el parametro "cargoadmin"
+          if(self::VALIDARPARAM($request, "cargoadmin") === true){
+            $cargoadmin = $request->cargoadmin;
+          }
+          else{
+            return self::VALIDARPARAM($request, "cargoadmin");
+          }
+
+          //Verificamos que la petición contenga el parametro "envio"
+          if(self::VALIDARPARAM($request, "envio") === true){
+            $envio = $request->envio;
+          }
+          else{
+            return self::VALIDARPARAM($request, "envio");
+          }
+
+          //Verificamos que la petición contenga el parametro "impuesto"
+          if(self::VALIDARPARAM($request, "impuesto") === true){
+            $impuesto = $request->impuesto;
+          }
+          else{
+            return self::VALIDARPARAM($request, "impuesto");
+          }
+
+          //Verificamos que la petición contenga el parametro "SubTotal"
+          if(self::VALIDARPARAM($request, "subtotal") === true){
+            $subtotal = $request->subtotal;
+          }
+          else{
+            return self::VALIDARPARAM($request, "subtotal");
+          }
+
+          //Verificamos que la petición contenga el parametro "Monto"
+          if(self::VALIDARPARAM($request, "monto") === true){
+            $monto = $request->monto;
+          }
+          else{
+            return self::VALIDARPARAM($request, "monto");
+          }
+
+          //Verificamos que la petición contenga el parametro "Formapago"
+          if(self::VALIDARPARAM($request, "formapago") === true){
+            $formapago = $request->formapago;
+          }
+          else{
+            return self::VALIDARPARAM($request, "formapago");
+          }
+
+          //Verificamos que la petición contenga el parametro "Items"
+          if(self::VALIDARPARAM($request, "items") === true){
+            $items = $request->items;
+
+            
+            if(self::VERIFARRAY($request) === true){
+
+            }
+            else{
+               return self::VERIFARRAY($request);
+            }
+          }
+          else{
+            return self::VALIDARPARAM($request, "items");
+          }
+
           //Verificamos que la petición contenga el parametro "Calle"
-          if(self::VALIDARPARAM($request, "calle") === true){
+          if(self::VALIDAA($request, "calle") === true){
             $calle = $request->calle;
           }
           else{
@@ -55,6 +112,14 @@ class Contratos extends Controller
           }
           else{
             return self::VALIDARPARAM($request, "colonia");
+          }
+
+          //Verificamos que la petición contenga el parametro "Colonia"
+          if(self::VALIDARPARAM($request, "cp") === true){
+            $cp = $request->cp;
+          }
+          else{
+            return self::VALIDARPARAM($request, "cp");
           }
 
           //Verificamos que la petición contenga el parametro "Ciudad"
@@ -73,9 +138,19 @@ class Contratos extends Controller
             return self::VALIDARPARAM($request, "estado");
           }
 
-          //return $vale." - ".$monto." - ".$plazo." - ".$calle." - ".$colonia." - ".$ciudad." - ".$estado;
+          //Verificamos que la petición contenga el parametro "Telefono"
+          if(self::VALIDARPARAM($request, "telefono") === true){
+            $telefono = $request->telefono;
+          }
+          else{
+            return self::VALIDARPARAM($request, "telefono");
+          }
 
-          return self::PREPARAR($vale, $monto, $plazo, $calle, $colonia, $ciudad, $estado);
+
+
+
+
+          //return self::PREPARAR($vale, $monto, $plazo, $calle, $colonia, $ciudad, $estado);
 
        }
        catch(Throwable $e){
@@ -105,6 +180,27 @@ class Contratos extends Controller
           report($e);
           return false;
        }
+    }
+
+    public function VERIFARRAY(Request $request){
+      try{
+         $validator = Validator::make($request->all(), [
+            'items.*.cantidad' => 'required',
+            'items.*.sku' => 'required',
+            'items.*.precio' => 'required',
+        ]);
+
+        if($validator->fails()){
+         return $validator->errors();
+        }
+        else{
+         return true;
+        }
+      }
+      catch(Throwable $e){
+         report($e);
+         return $e;
+      }
     }
 
     public function ACTUALIZACLIENTE($id, $ciudad, $estado, $calle, $colonia){

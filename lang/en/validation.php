@@ -148,9 +148,20 @@ return [
     |
     */
 
+    // 'custom' => [
+    //     'attribute-name' => [
+    //         'rule-name' => 'custom-message',
+    //     ],
+    // ],
     'custom' => [
-        'attribute-name' => [
-            'rule-name' => 'custom-message',
+        'items.*.cantidad' => [
+            'required' => "El parametro 'items' no contiene el atributo 'cantidad'."
+        ],
+        'items.*.sku' => [
+            'required' => "El parametro 'items' no contiene el atributo 'sku'."
+        ],
+        'items.*.precio' => [
+            'required' => "El parametro 'items' no contiene el atributo 'precio'.",
         ],
     ],
 
