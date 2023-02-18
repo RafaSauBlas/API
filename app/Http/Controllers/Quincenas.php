@@ -19,7 +19,6 @@ class Quincenas extends Controller
        try{
 
          if($request->has("vale")){
-            
             //Verificamos que el parametro "Vale" no esté vacio
             if($request->filled("vale")){
                $vale = $request->vale;
@@ -27,11 +26,11 @@ class Quincenas extends Controller
                $disponible = $val->FAdc_Saldo;
             }
             else{
-              return response()->error("El parametro 'vale' no contiene un valor asignado.");
+              return response()->valores("El parametro 'vale' no contiene un valor asignado.");
             }
           }
           else{
-            return response()->error("La petición no contiene el parametro 'vale'.");
+            return response()->parametros("La petición no contiene el parametro 'vale'.");
           }
 
         if($request->has("monto")){
@@ -61,15 +60,19 @@ class Quincenas extends Controller
                 }
                 $admin = DB::table("parametros")->where("idparametro", 1)->select("valor")->first();
                 $cargo = $admin->valor;
-                
-                return response()->respuesta($plazos, $cargo);
+                if(count($plazos) < 1){
+                  return response()->sinsaldo(false, "Saldo insuficiente.");
+                }
+                else{
+                  return response()->respuesta($plazos, $cargo);
+                }
             }
             else{
-              return response()->error("El parametro 'monto' no contiene un valor asignado.");
+              return response()->valores("El parametro 'monto' no contiene un valor asignado.");
             }
           }
           else{
-            return response()->error("La petición no contiene el parametro 'monto'.");
+            return response()->parametros("La petición no contiene el parametro 'monto'.");
           }
 
        }

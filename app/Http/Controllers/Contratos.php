@@ -181,7 +181,7 @@ class Contratos extends Controller
           }
 
 
-          //return self::PREPARAR($vale, $monto, $plazo, $calle, $colonia, $ciudad, $estado);
+          return self::PREPARAR($vale, $monto, $plazo, $calle, $colonia, $ciudad, $estado);
 
        }
        catch(Throwable $e){
@@ -199,11 +199,11 @@ class Contratos extends Controller
                 return true;
              }
              else{
-                return response()->error("El parametro '".$campo."' no contiene un valor asignado.");
+                return response()->valores("El parametro '".$campo."' no contiene un valor asignado.");
              }
           }
           else{
-             return response()->error("La petición no contiene el parametro '".$campo."'.");
+             return response()->parametros("La petición no contiene el parametro '".$campo."'.");
           }
   
        }
@@ -236,7 +236,7 @@ class Contratos extends Controller
 
     public function ACTUALIZACLIENTE($id, $ciudad, $estado, $calle, $colonia){
        try{
-          
+        
           $update = DB::table("FATB_Clientes")
                       ->where("FAnv_CveCliente", $id)
                       ->update([
@@ -246,7 +246,7 @@ class Contratos extends Controller
                                 "FAnv_DirFiscal" => strtoupper($colonia),
                                 "FAnv_Calle" => strtoupper($calle)
                               ]);
-          return response()->informacion(true);
+          return response()->buena(true);
        }
        catch(Throwable $e){
          report($e);
@@ -261,7 +261,7 @@ class Contratos extends Controller
           $id = $cliente_id->FAdc_CveCliente;
           $iddistrib = $cliente_id->FAin_IdDistri;
 
-          $cliente = DB::table("FATB_Clientes")->where("FAnv_CveCliente", $id)->select("FAnv_CveCliente", "FAnv_Razon", "FAnv_Nombres", "FAnv_APaterno", 
+          $cliente = DB::table("FATB_Clientes")->where("FAnv_CveCliente", $id)->select("FAnv_CveCliente", "FAnv_Razon", "FAnv_Nombres", "FAnv_APaterno",
                                                                                        "FAnv_AMaterno")->first();
 
           $folio = self::ENCABEZADO($vale, $cliente, $calle, $colonia, $estado, $ciudad, $monto, $plazo, $iddistrib);

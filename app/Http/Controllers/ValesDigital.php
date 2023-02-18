@@ -31,11 +31,11 @@ class ValesDigital extends Controller
                $monto = $request->importe;
             }
             else{
-               return response()->error("El parametro 'importe' no contiene un valor asignado.");
+               return response()->valores("El parametro 'importe' no contiene un valor asignado.");
             }
          }
          else{
-            return response()->error("La petición no contiene el parametro 'importe'.");
+            return response()->parametros("La petición no contiene el parametro 'importe'.");
          }
 
         $limites1 = DB::table("Quincenas")->where("idquincenas", 1)->select("valorini")->first();
@@ -47,7 +47,7 @@ class ValesDigital extends Controller
             return self::VERIFICAR($request);
         }
         else{
-            return response()->informacion(false);
+          return response()->sinsaldo(false, "Saldo insuficiente");
         }
       }
       catch(Throwable $e){
@@ -69,7 +69,7 @@ class ValesDigital extends Controller
               $tipo = 1;
             }
             else{
-              return response()->error("El folio introducido no es un folio valido.");
+              return response()->invalido("El folio introducido no es un folio valido.");
             }
           }
           else{
@@ -82,38 +82,38 @@ class ValesDigital extends Controller
                   $tipo = 2;
                 }
                 else{
-                  return response()->error("El folio introducido no es un folio valido.");
+                  return response()->invalido("El folio introducido no es un folio valido.");
                 }
 
               }
               else{
-                return response()->error("El parametro 'cuentap' no contiene un valor asignado.");
+                return response()->valores("El parametro 'cuentap' no contiene un valor asignado.");
               }
             }
             else{
-              return response()->error("La petición no contiene el parametro 'cuentap'.");
+              return response()->parametros("La petición no contiene el parametro 'cuentap'.");
             }
 
           }
         }
         else{
-          return response()->error("La petición no contiene el parametro 'vale'.");
+          return response()->parametros("La petición no contiene el parametro 'vale'.");
         }
 
         if($tipo == 1){
           //Verificamos que la petición contenga el parametro "Fecha"
-        if($request->has("fecha")){
-          //Verificamos que el parametro "Vale" no esté vacio
-          if($request->filled("fecha")){
-            $fecha = $request->fecha;
+          if($request->has("fecha")){
+            //Verificamos que el parametro "Vale" no esté vacio
+            if($request->filled("fecha")){
+              $fecha = $request->fecha;
+            }
+            else{
+              return response()->valores("El parametro 'fecha' no contiene un valor asignado.");
+            }
           }
           else{
-            return response()->error("El parametro 'fecha' no contiene un valor asignado.");
+            return response()->parametros("La petición no contiene el parametro 'fecha'.");
           }
-        }
-        else{
-          return response()->error("La petición no contiene el parametro 'fecha'.");
-        }
         }
 
         //Verificamos que la petición contenga el parametro "Importe"
@@ -123,11 +123,11 @@ class ValesDigital extends Controller
             $importe = $request->importe;
           }
           else{
-            return response()->error("El parametro 'importe' no contiene un valor asignado.");
+            return response()->valores("El parametro 'importe' no contiene un valor asignado.");
           }
         }
         else{
-          return response()->error("La petición no contiene el parametro 'importe'.");
+          return response()->parametros("La petición no contiene el parametro 'importe'.");
         }
 
 
@@ -136,7 +136,7 @@ class ValesDigital extends Controller
 
         //Validamos que exista algun registro con este folio
         if($exist === null){
-          return response()->informacion(false);
+          return response()->invalido("El folio que introdujo no existe, verifique el folio e intente nuevamente.");
         }
         else{
           $id = $exist->FAin_IdDistri;
@@ -148,18 +148,18 @@ class ValesDigital extends Controller
             //Validamos la vigencia del vale (Se le suman 30 dias a la fecha en la que se generó el vale)
             if(date("Y/m/d", strtotime($fecha)) >= date("Y/m/d", strtotime($exist->FAdt_Fecha)) &&
                date("Y/m/d", strtotime($fecha)) <= date("Y/m/d", strtotime($exist->FAdt_Fecha."+ 30 days")) && $importe <= $disponible){
-               return response()->informacion(true);
+               return response()->buena(true);
             }
             else{
-              return response()->informacion(false);
+              return response()->vencido(false, "Vale expirado.");
             }
           }
           else{
             if($importe <= $disponible){
-               return response()->informacion(true);
+               return response()->buena(true);
             }
             else{
-              return response()->informacion(false);
+              return response()->sinsaldo(false, "Saldo insuficiente");
             }
           }
             

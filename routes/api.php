@@ -7,6 +7,7 @@ use App\Http\Controllers\ValesDigital;
 use App\Http\Controllers\Contratos;
 use App\Http\Controllers\Quincenas;
 use App\Http\Controllers\Control;
+use App\Http\Controllers\PruebaCon;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,7 +41,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 ROUTE::POST('/vales/verifvale', [ValesDigital::class, 'TRAER_LIMITE', function(Request $request){}]);
 //API #2 Generar parrilla
 ROUTE::POST('/quincenas/detalle', [Quincenas::class, 'SHOW', function(Request $request){}]);
-//API #3 Generar pedido y detallado del pedido
+//API #3 Generar venta y detallado de la venta
 ROUTE::POST('/contratos/genera', [Contratos::class, 'PRIMER', function(Request $request){}]);
+
+ROUTE::GET('/prueba/prueba', [PruebaCon::class, 'SHOW', function(Request $request){}]);
 //API $4 Validar limites del pedido
 //ROUTE::POST('/control/limite', [Control::class, 'TRAER_LIMITE', function(Request $request){}]);

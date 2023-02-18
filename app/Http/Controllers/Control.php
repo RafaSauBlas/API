@@ -23,11 +23,11 @@ class Control extends Controller
                    $monto = $request->monto;
                 }
                 else{
-                   return response()->error("El parametro 'monto' no contiene un valor asignado.");
+                   return response()->valores("El parametro 'monto' no contiene un valor asignado.");
                 }
              }
              else{
-                return response()->error("La petición no contiene el parametro 'monto'.");
+                return response()->parametros("La petición no contiene el parametro 'monto'.");
              }
 
             $limites1 = DB::table("Quincenas")->where("idquincenas", 1)->select("valorini")->first();
@@ -36,10 +36,10 @@ class Control extends Controller
             $lim2 = $limites2->valorfin;
 
             if($monto >= $lim1 && $monto <= $lim2){
-                return response()->informacion(true);
+                return response()->buena(true);
             }
             else{
-                return response()->informacion(false);
+                return response()->sinsaldo(false, "Saldo insuficiente.");
             }
         }
         catch(Throwable $e){
