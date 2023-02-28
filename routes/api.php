@@ -8,6 +8,7 @@ use App\Http\Controllers\Contratos;
 use App\Http\Controllers\Quincenas;
 use App\Http\Controllers\Control;
 use App\Http\Controllers\PruebaCon;
+use App\Http\Controllers\RegistroVenta;
 
 /*
 |--------------------------------------------------------------------------
@@ -44,6 +45,18 @@ ROUTE::POST('/quincenas/detalle', [Quincenas::class, 'SHOW', function(Request $r
 //API #3 Generar venta y detallado de la venta
 ROUTE::POST('/contratos/genera', [Contratos::class, 'PRIMER', function(Request $request){}]);
 
-ROUTE::GET('/prueba/prueba', [PruebaCon::class, 'SHOW', function(Request $request){}]);
+
+
+
+
+
+
+
+
+
+ROUTE::POST('/prueba/prueba', [PruebaCon::class, 'PRIMER', function(Request $request){}]);
+
+ROUTE::POST('/contratos/registro', [RegistroVenta::class, 'PRIMER', function(Request $request){}]);
+
 //API $4 Validar limites del pedido
 //ROUTE::POST('/control/limite', [Control::class, 'TRAER_LIMITE', function(Request $request){}]);

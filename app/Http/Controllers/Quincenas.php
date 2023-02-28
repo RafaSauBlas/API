@@ -22,8 +22,16 @@ class Quincenas extends Controller
             //Verificamos que el parametro "Vale" no esté vacio
             if($request->filled("vale")){
                $vale = $request->vale;
-               $val = DB::table("FATB_DistibuidorVales")->where("FAdc_IdVale", $vale)->select("FAdc_Saldo")->first();
-               $disponible = $val->FAdc_Saldo;
+               $val = DB::table("FATB_DistibuidorVales")->where("FAdc_IdVale", $vale)->select("FAdc_Importe", "FAdc_Saldo")->first();
+               $saldo = round($val->FAdc_Saldo);
+               $importe = round($val->FAdc_Importe);
+
+               if($saldo > 0){
+                $valor = $saldo;
+              }
+              else{
+                $valor = $importe;
+              }
             }
             else{
               return response()->valores("El parametro 'vale' no contiene un valor asignado.");
@@ -40,8 +48,12 @@ class Quincenas extends Controller
                 $monto =  round($request->monto);
                 $quincena = DB::table("Quincenas")->where("valorini", "<=", $monto)
                                                   ->where("valorfin", ">=", $monto)->select("idquincenas")->first();
-
-                $quincenaid = $quincena->idquincenas;
+                if($quincena === null){
+                  return response()->sobrepaso("El monto ingresado sobrepasa el monto maximo por quincenas.");
+                }
+                else{
+                  $quincenaid = $quincena->idquincenas;
+                }
 
                 $quincenas = DB::table("Quincenasdet")->where("idquincena", $quincenaid)->select("plazo")->get();
                 $plazos = array();
@@ -53,7 +65,7 @@ class Quincenas extends Controller
                    $subt = (($monto / $quincena) * $fact[0]->factor);
                    $tot = ($quincena * $subt);
 
-                   if($tot <= $disponible){
+                   if($tot <= $valor){
                      $valores = ["pagos" => $quincena, "monto" => round($subt, 2), "total" => round($tot, 2)];
                      $plazos[$contador] = $valores;
                    }

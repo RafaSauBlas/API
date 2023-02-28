@@ -47,7 +47,8 @@ class ValesDigital extends Controller
             return self::VERIFICAR($request);
         }
         else{
-          return response()->sinsaldo(false, "Saldo insuficiente");
+          return self::VERIFICAR($request);
+          //return response()->sinsaldo(false, "Saldo insuficiente");
         }
       }
       catch(Throwable $e){
@@ -66,14 +67,21 @@ class ValesDigital extends Controller
             //Validamos que el folio tenga el formato correcto
             if(substr($request->vale, 0, 2) === "VE" || substr($request->vale, 0, 2) === "ve" && Str::of($request->vale)->length() === 8){
               $vale = $request->vale;
-              $tipo = 1;
+
+              $vid = DB::table("FATB_DistibuidorVales")->where("FAdc_IdVale", $vale)->select("FAin_IdDistri")->first();
+              if(is_null($vid)){
+                return response()->malcuenta("El vale introducido no es valido.");
+              }
+              else{
+                $tipo = 1;
+              }
             }
             else{
               return response()->invalido("El folio introducido no es un folio valido.");
             }
           }
           else{
-            
+
             if($request->has("cuentap")){
               if($request->filled("cuentap")){
 
@@ -83,6 +91,37 @@ class ValesDigital extends Controller
                 }
                 else{
                   return response()->invalido("El folio introducido no es un folio valido.");
+                }
+
+                if($request->has("nocuenta")){
+                  if($request->filled("nocuenta")){
+                    
+                    $nocuenta = $request->nocuenta;
+                    $cuen = DB::table("FATB_DistibuidorVales")->where("FAin_IdDistri", $nocuenta)->select("FAin_IdDistri")->first();
+                    if(is_null($cuen)){
+                      return response()->malcuenta("El numero de cuenta introducido no existe.");
+                    }
+                    else{
+                      $cun = $cuen->FAin_IdDistri;
+                      $did = DB::table("FATB_DistibuidorVales")->where("FAdc_IdVale", $vale)->select("FAin_IdDistri")->first();
+                      if(is_null($did)){
+                        return response()->cuentanoco("La cuenta de credito personal no existe.");
+                      }
+                      else{
+                        $di = $did->FAin_IdDistri;
+                        if($cun != $di){
+                           return response()->cuentanoco("El numero de cuenta introducido no coincide con el codigo de cuenta personal.");
+                        }
+                      }
+
+                    }
+                  }
+                  else{
+                    return response()->valores("El parametro 'nocuenta' no contiene un valor asignado.");    
+                  }
+                }
+                else{
+                  return response()->parametros("La petición no contiene el parametro 'nocuenta'.");
                 }
 
               }
@@ -132,8 +171,15 @@ class ValesDigital extends Controller
 
 
         //Traemos el registro que coincida con el folio introducido
-        $exist = DB::table("FATB_DistibuidorVales")->where("FAdc_IdVale", $vale)->select("FAdc_IdVale", "FAdc_Saldo", "FAdt_Fecha", "FAin_IdDistri")->first();
-
+        $exist = DB::table("FATB_DistibuidorVales")->where("FAdc_IdVale", $vale)->select("FAdc_IdVale", "FAdc_Importe", "FAdc_Saldo", "FAdt_Fecha", "FAin_IdDistri")->first();
+        $impo = $exist->FAdc_Importe;
+        $saldo = $exist->FAdc_Saldo;
+        if($saldo > 0){
+          $valor = $saldo;
+        }
+        else{
+          $valor = $impo;
+        }
         //Validamos que exista algun registro con este folio
         if($exist === null){
           return response()->invalido("El folio que introdujo no existe, verifique el folio e intente nuevamente.");
@@ -147,15 +193,20 @@ class ValesDigital extends Controller
           if($tipo == 1){
             //Validamos la vigencia del vale (Se le suman 30 dias a la fecha en la que se generó el vale)
             if(date("Y/m/d", strtotime($fecha)) >= date("Y/m/d", strtotime($exist->FAdt_Fecha)) &&
-               date("Y/m/d", strtotime($fecha)) <= date("Y/m/d", strtotime($exist->FAdt_Fecha."+ 30 days")) && $importe <= $disponible){
-               return response()->buena(true);
+               date("Y/m/d", strtotime($fecha)) <= date("Y/m/d", strtotime($exist->FAdt_Fecha."+ 30 days"))){
+               if($importe <= $valor){
+                return response()->buena(true);
+               }
+               else{
+                return response()->sinsaldo(false, "Saldo insuficiente");  
+              }
             }
             else{
               return response()->vencido(false, "Vale expirado.");
             }
           }
           else{
-            if($importe <= $disponible){
+            if($importe <= $valor){
                return response()->buena(true);
             }
             else{
@@ -174,8 +225,22 @@ class ValesDigital extends Controller
     }
 
     //Funcion para calcular el saldo disponible del distribuidor
+    public function ObtenerDisponible($vale){
+      try{
+        
+
+      }
+      catch(Throwable $e){
+        return $e;
+      }
+    }
+
+    //Funcion para calcular el saldo disponible del distribuidor
     public function CalcularDisponible($id){
       try{
+
+
+
 
         $distrib = DB::table("FATB_Distibuidor")->where("FAin_Id", $id)->select("FAdc_LineaCreditoVale")->first();
 

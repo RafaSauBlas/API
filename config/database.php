@@ -93,12 +93,12 @@ return [
             // 'trust_server_certificate' => env('DB_TRUST_SERVER_CERTIFICATE', 'false'),
         ],
 
-        'SirCoEnLinea' => [
+        'AVASIS' => [
             'driver' => 'sqlsrv',
-            'url' => '',
-            'host' => '201.148.82.174',
-            'port' => '1433',
-            'database' => 'SirCoEnLinea',
+            'url' => env('DATABASE_URL'),
+            'host' => env('DB_HOST', 'localhost'),
+            'port' => env('DB_PORT', '1433'),
+            'database' => env('DB_DATABASE', 'forge'),
             'username' => env('DB_USERNAME', 'forge'),
             'password' => env('DB_PASSWORD', ''),
             'charset' => 'utf8',

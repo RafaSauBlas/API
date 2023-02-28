@@ -51,15 +51,24 @@ class AppServiceProvider extends ServiceProvider
             return Response::json(["respuesta" => ["error" => $valor], "timestamp" => Carbon::now()->toDateTimeString()], 400);
         });
 
-        //Valor inexistente o invalido (404)
+        //Valor inexistente o invalido (403)
         Response::macro('invalido', function($valor){
-            return Response::json(["respuesta" => ["error" => $valor], "timestamp" => Carbon::now()->toDateTimeString()], 404);
+            return Response::json(["respuesta" => ["error" => $valor], "timestamp" => Carbon::now()->toDateTimeString()], 403);
         });
 
-        
+        //Valor inexistente o invalido (401)
+        Response::macro('sobrepaso', function($valor){
+            return Response::json(["respuesta" => ["error" => $valor], "timestamp" => Carbon::now()->toDateTimeString()], 401);
+        });
 
+        //Valor inexistente o invalido (401)
+        Response::macro('malcuenta', function($valor){
+            return Response::json(["respuesta" => ["error" => $valor], "timestamp" => Carbon::now()->toDateTimeString()], 307);
+        });
 
-
+        Response::macro('cuentanoco', function($valor){
+            return Response::json(["respuesta" => ["error" => $valor], "timestamp" => Carbon::now()->toDateTimeString()], 306);
+        });
 
         //****************************************************************************************************************************************/
         //Respuesta de error
